@@ -1,0 +1,6 @@
+reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist //сортирует зеркала по скорости
+rm //удаление файлов
+pacman -Syu //полное обновление
+pacman -Syy //принудительное обновление репозиториев
+pacman -S //загрузка
+pacman -Ss //поиск по репозиториям
