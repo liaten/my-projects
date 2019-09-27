@@ -4,3 +4,7 @@ pacman -Syu //полное обновление
 pacman -Syy //принудительное обновление репозиториев
 pacman -S //загрузка
 pacman -Ss //поиск по репозиториям
+git add . //добавляешь в гит
+git commit -m "пишешь сюда всякий скам что ты сделал"
+git push origin //загружаешь в гит
+git remote set-url origin git@github.com:liaten/my-projects.git//добавить SSH-взаимодействия через консоль чтобы сайт не открывать
