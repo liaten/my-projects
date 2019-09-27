@@ -1,0 +1,5 @@
+[{
+  "file": "/home/gnutella/code/new houses/lines/main.cpp",
+  "directory": "/home/gnutella/code/new houses/lines",
+  "command": "clang  -c \"/home/gnutella/code/new houses/lines/main.cpp\" -o \"/home/gnutella/code/new houses/lines/main.cpp\".o  -I/usr/include/c++/9.1.0 -I/usr/include/c++/9.1.0/x86_64-pc-linux-gnu -I/usr/include/c++/9.1.0/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/9.1.0/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/9.1.0/include-fixed -I/usr/include -I. -I.  -g  -O0  -Wall"
+ }]
