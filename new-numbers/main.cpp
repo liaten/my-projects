@@ -1,52 +1,54 @@
-#include <stdio.h>
-#include <string.h>
 #include <iostream>
-#define BUFFERSIZE 1000
+#include <clocale>
+#include <cstring>
+#include <cstdio>
 using namespace std;
-
-int main(void)
+int main()
 {
-    int f;//variable to take number
+    setlocale( LC_ALL,"Russian" );
+    cout << "Программа предназначена для нахождения числа по его порядку среди других чисел внутри строки.\n";
+    const size_t N = 512;
+    char s[N];
+    int f;
     int count=0;
     char save;
-    char buffer[BUFFERSIZE];
-    char cChar;
-    metka1:
-    printf("Enter a message (You can stop program from working by pressing \"Enter\" button): \n");
-    while(*(fgets(buffer, BUFFERSIZE, stdin)) != '\n')
-    {
-        cout<<buffer;
-        // Corrects the error mentioned by Alain BECKER.       
-        // Checks if the string buffer is full to check and prevent the 
-        // next character read by fgets is '\n' .
-        if(strlen(buffer) == (BUFFERSIZE - 1) && (buffer[strlen(buffer) - 1] != '\n'))
+
+    do
+    {   metka1:
+    f=0;
+        //memset(s, NULL, sizeof(s));
+        cout << "Введите строчку: ";
+
+        fgets( s, N, stdin );
+        for(int i=0;i<N;i++)
         {
-            // Prevents end of the line '\n' to be read in the first 
-            // character (Loop Exit) in the next loop. Reads
-            // the next char in stdin buffer , if '\n' is read and removed, if
-            // different is returned to stdin 
-            cChar = fgetc(stdin);
-            if(cChar != '\n')
-                ungetc(cChar, stdin);
-            // To print correctly if '\n' is removed.
-            else
-                cout<<endl;
+            if (s[i]>='0' && s[i]<='9')count++;
         }
-        //here my code continues
-        cout<<"Enter value to search a number: ";
-        cin >> f;
-    for(int i=0;i<strlen(buffer);i++){
-        if(buffer[i]>='0' && buffer[i]<='9' && count!=f)count++;
-        if(count==f){
-            save=buffer[i];
-            break;
+        if(count==0)
+        {
+            cout<<"В стороке отсутствуют какие либо знаки цифр.\nВведите строку еще раз: ";
+            fgets( s, N, stdin );
         }
-    }
-    if(count!=0)cout<<endl<<save;
-    else    {   cout<<"You entered wrong number to search or there is no number in string!\nGoing back...\n";
-                free(buffer);
-                goto metka1;
-            }
-    }
+        //char *p = s;
+        //while ( *p ) std::cout << static_cast<int>( *p++ ) << ' ';
+        cout << endl;
+        cout <<"Введите порядковый номер цифры: ";
+        cin>>f;
+
+        for(int i=0;i<N;i++){
+            if(s[i]>='0' && s[i]<='9' && count!=f)count++;
+            if (count==f){
+                save=s[i];
+                break;}
+        }
+        //отладка короче))
+        cout<<f<<endl<<count<<endl<<save<<endl;
+        if ((count==f) && (count!=0)){
+            cout<<"Цифра № "<<f<<" = "<<save<<endl<<endl;
+            break;}
+        else{
+            cout<<"В строке нет чисел или поисковое число введено неверно, введите заново\n";
+            goto metka1;}
+    } while (!(count==f)!=1);
     return 0;
 }
