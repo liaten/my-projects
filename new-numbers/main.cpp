@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
-
-// The value BUFFERSIZE can be changed to customer's taste . Changes the
-// size of the base array (string buffer )    
 #define BUFFERSIZE 1000
+using namespace std;
 
 int main(void)
 {
@@ -13,15 +11,11 @@ int main(void)
     char save;
     char buffer[BUFFERSIZE];
     char cChar;
+    metka1:
     printf("Enter a message (You can stop program from working by pressing \"Enter\" button): \n");
     while(*(fgets(buffer, BUFFERSIZE, stdin)) != '\n')
     {
-        // For concatenation
-        // fgets reads and adds '\n' in the string , replace '\n' by '\0' to 
-        // remove the line break .
-/*      if(buffer[strlen(buffer) - 1] == '\n')
-            buffer[strlen(buffer) - 1] = '\0'; */
-printf("%s", buffer);
+        cout<<buffer;
         // Corrects the error mentioned by Alain BECKER.       
         // Checks if the string buffer is full to check and prevent the 
         // next character read by fgets is '\n' .
@@ -36,13 +30,23 @@ printf("%s", buffer);
                 ungetc(cChar, stdin);
             // To print correctly if '\n' is removed.
             else
-                printf("\n");
+                cout<<endl;
         }
         //here my code continues
-        std::cin >> f;
+        cout<<"Enter value to search a number: ";
+        cin >> f;
     for(int i=0;i<strlen(buffer);i++){
         if(buffer[i]>='0' && buffer[i]<='9' && count!=f)count++;
+        if(count==f){
+            save=buffer[i];
+            break;
+        }
     }
+    if(count!=0)cout<<endl<<save;
+    else    {   cout<<"You entered wrong number to search or there is no number in string!\nGoing back...\n";
+                free(buffer);
+                goto metka1;
+            }
     }
     return 0;
 }
