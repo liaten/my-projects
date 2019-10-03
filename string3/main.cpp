@@ -1,7 +1,6 @@
 #include <iostream>
 #include <clocale>
-#include <cstring>
-#include <cstdio>
+//#include <cstring>
 using namespace std;
 int main()
 {

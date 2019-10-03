@@ -1,7 +1,7 @@
 #include <iostream>
 #include <clocale>
-#include <cstring>
-#include <cstdio>
+//#include <cstring>
+//#include <cstdio>
 using namespace std;
 int main()
 {
@@ -12,7 +12,7 @@ int main()
     int Acount=0;
     char min_char='9';
     char max_char='0';
-    memset(s, NULL, sizeof(s));
+    //memset(s, NULL, sizeof(s));
 
     //тут можно ничего не менять! всё и так работает)
     while (!(Acount==0)!=1)
