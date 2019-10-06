@@ -52,7 +52,7 @@ int main()
         in.open("output_max.txt",ios::in);
         while(in>>word)
         {
-            
+            ///////////////////
         }
 
     }
