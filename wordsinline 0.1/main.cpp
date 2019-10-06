@@ -9,8 +9,8 @@ int main()
     setlocale(LC_ALL,"Rus");
     ifstream in;
     in.open ("input.txt",ios::in);
-    //ofstream out;          // поток для записи
-    //out.open("output.txt", ios::app);
+    ofstream out;          // поток для записи
+    out.open("output.txt", ios::trunc);
     string word;
     int minw=1024;
     int maxw=0;
@@ -26,6 +26,7 @@ int main()
         if(word[0]!=' ')out<< word <<" ";
     }
     in.close();
+    out.close();
     if(minw!=1024 || maxw!=0) /*cout<<endl<<minw<<endl<<maxw<<endl;*/
     {
         cout<<endl<<maxw<<endl<<minw<<endl;
@@ -47,8 +48,12 @@ int main()
 
         }
         in.close();
-        //in.open("output_max.txt",ios::in);
-
+        out.close();
+        in.open("output_max.txt",ios::in);
+        while(1)
+        {
+            ;
+        }
 
     }
 
