@@ -50,9 +50,9 @@ int main()
         in.close();
         out.close();
         in.open("output_max.txt",ios::in);
-        while(1)
+        while(in>>word)
         {
-            ;
+            
         }
 
     }
