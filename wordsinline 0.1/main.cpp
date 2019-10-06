@@ -1,48 +1,57 @@
-#include <iostream>
-#include <clocale>
-#include <fstream> //для работы с текстом
-#include <cstring> //проверяет длину строки
-using namespace std;
+#include <iostream>     //ввод вывод
+#include <clocale>      //русский язык
+#include <fstream>      //для работы с текстом
+#include <cstring>      //проверяет длину строки
+using namespace std;    //ввод вывод
 
 int main()
 {
     setlocale(LC_ALL,"Rus");
-    ifstream file;
-    file.open ("input.txt", ios::out);
-    
-/*
-    ifstream file2;
-    file2.open ("output.txt",ios::in);*/
-
+    ifstream in;
+    in.open ("input.txt",ios::in);
+    //ofstream out;          // поток для записи
+    //out.open("output.txt", ios::app);
     string word;
     int minw=1024;
     int maxw=0;
-    while (file >> word)
+    while (in >> word)
     {
         for(int i=0;i<word.length();i++)
         {
-            if (!isalpha(word[i]))word[i]=NULL;
+            if (!isalnum(word[i])) word[i]=' ';
+            if (isupper(word[i])) word[i]=tolower(word[i]);
         }
         if(word.length()>maxw)maxw=word.length();
         else if(word.length()<minw)minw=word.length();
-        if(word[0]!=NULL)cout<<"\"" << word <<"\""<< '\t';
+        if(word[0]!=' ')out<< word <<" ";
     }
+    in.close();
     if(minw!=1024 || maxw!=0) /*cout<<endl<<minw<<endl<<maxw<<endl;*/
     {
-        while (file >> word)
+        cout<<endl<<maxw<<endl<<minw<<endl;
+        in.open ("output.txt", ios::in);
+        while(in>>word)
         {
-            ofstream out;          // поток для записи
-            out.open("output.txt"); // окрываем файл для записи
-                out << "Hello World!" << endl;
-           /* if(word.length()==minw)
+            if(word.length()==maxw)
             {
+                out.close();
+                out.open("output_max.txt", ios::app);
+                out<<word<<' ';
             }
-            else if(word.length()==maxw)
+            if(word.length()==minw)
             {
-            }*/
+                out.close();
+                out.open("output_min.txt", ios::app);
+                out<<word<<' ';
+            }
+
         }
-        cout<<endl;
+        in.close();
+        //in.open("output_max.txt",ios::in);
+
+
     }
+
     else cout<<"В файле не введены слова, файл пустой, или файл не открылся."<<endl;
 
     return 0;
