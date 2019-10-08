@@ -18,7 +18,7 @@ int main()
     string word;
     string word1;
     string word2;
-    int minw=1024;
+    int minw=2048000;
     int maxw=0;
     while (in >> word)
     {
@@ -27,13 +27,13 @@ int main()
             if (!isalnum(word[i])) word[i]=' ';
             if (isupper(word[i])) word[i]=tolower(word[i]);
         }
-        if(word.length()>maxw)maxw=word.length();
-        else if(word.length()<minw)minw=word.length();
+        if((word.length()>maxw) && (word[0]!=' '))maxw=word.length();
+        else if((word.length()<minw) && (word[0]!=' ') )minw=word.length();
         if(word[0]!=' ')out<< word <<" ";
     }
     in.close();
     out.close();
-    if(minw!=1024 || maxw!=0) /*cout<<endl<<minw<<endl<<maxw<<endl;*/
+    if(minw!=1024000 || maxw!=0) /*cout<<endl<<minw<<endl<<maxw<<endl;*/
     {
         cout<<"Максимальная длина слова: "<<maxw<<endl<<"Минимальная длина слова: "<<minw<<endl;
         in.open ("output.txt", ios::in);
