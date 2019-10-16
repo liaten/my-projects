@@ -16,7 +16,7 @@ int main()
 	{
 		for (int j = 0;j < n;j++)
 		{
-			s1[i][j] = (rand() % ((n*m)+1) );
+			s1[i][j] = ( rand() % ((n*m)+1) );
 			cout << s1[i][j] << "\t";
 		}
 		cout << endl;
