@@ -31,10 +31,10 @@ int main()
         else if((word.length()<minw) && (word[0]!=' ') )minw=word.length();
         if(word[0]!=' ')out<< word <<" ";
     }
-    in.close();
-    out.close();
-    if(minw!=1024000 || maxw!=0) /*cout<<endl<<minw<<endl<<maxw<<endl;*/
+    if(minw!=2048000 || maxw!=0)
     {
+        in.close();
+        out.close();
         cout<<"Максимальная длина слова: "<<maxw<<endl<<"Минимальная длина слова: "<<minw<<endl;
         in.open ("output.txt", ios::in);
         while(in>>word)
@@ -54,24 +54,6 @@ int main()
         }
         in.close();
         out.close();outmin.close();outmax.close();
-        /*
-        char cwd1[512];char cwd2[512];
-        for(int i=0;i<512;i++){
-            cwd1[i]=0;
-            cwd2[i]=0;
-        }
-        while(in>>word)
-        {
-            if(cwd1[0]='0') {strcpy(cwd1, word.c_str());continue;}
-            if(cwd2[0]='0') strcpy(cwd2, word.c_str());
-            if(strcmp(cwd1,cwd2))
-            {
-                out.open("min2.txt", ios::app);
-                cout<<cwd1<<' '<<cwd2;
-                out.close();
-            }
-            in.close();
-        }*/
         cout<<"Все обработанные слова: ";
         in.open("output.txt",ios::in);
         while(in>>word) cout<<word<<' ';
@@ -84,6 +66,12 @@ int main()
         cout<<"\nВсе слова с длиной "<<minw<<": ";
         while(in>>word) cout<<word<<' ';
     }
-    else cout<<"В файле не введены слова, файл пустой, или файл не открылся."<<endl;
+    //else cout<<"В файле не введены слова, файл пустой, или файл не открылся."<<endl;
+    else
+    {
+        if //в файле нет слов
+        //длина строки в файле 0
+        //файл тупа не открылся
+    }
     return 0;
 }
