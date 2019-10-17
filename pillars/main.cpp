@@ -1,30 +1,77 @@
 #include <iostream>
-#include <cstdlib>
+//#include <cstdlib>
 #include <ctime>
 using namespace std;
 int main()
 {
-	int n=0,m=0,center=0,BUFF=0;
+	int width=0,height=0,center=0,BUFF=0;
 	setlocale(LC_ALL, "Russian");
-	cout << "Введите количество строк матрицы, m: ";
-	cin >> m;
-	cout << endl << "Введите количество столбцов матрицы, n: ";
-	cin >> n;
+	cout << "Введите количество строк матрицы, height: ";
+	cin >> height;
+	cout << endl << "Введите количество столбцов матрицы, width: ";
+	cin >> width;
+	cout<<endl;
 	srand(time(0));
-	int mas1[m][n];
-	for (int i = 0; i < m;i++)
+	int mas[height][width];
+	for (int i = 0; i < height;i++)
 	{
-		for (int j = 0;j < n;j++)
+		for (int j = 0;j < width;j++)
 		{
-			//mas1[i][j] = ( rand() % ((n*m)+1) );
-			mas1[i][j]=j;
-			cout << mas1[i][j] << "\t";
+			//mas[i][j] = ( rand() % ((width*height)+1) );
+			mas[i][j]=j;
+			cout << mas[i][j] << "\t";
 		}
 		cout << endl;
 	}
-	if(n%2==0)
+	bool NOSORT=0;
+	if(width>2)
 	{
-		//
+		if (width%2==0) //четные числа
+		{
+			for(int i=0;i<height;i++)
+			{
+				for(int j=2;j<width;j++)
+				{
+					;
+				}
+			}
+		}
+		else if (width%2==1) //нечетные числа
+		{
+			center=width/2;
+			//cout<<center<<endl;
+			for(int i=0;i<height;i++)
+			{
+				BUFF=mas[i][1];
+				mas[i][1]=mas[i][2];
+				mas[i][2]=BUFF;
+				if(width>=5)
+				{
+					for(int j=4;j<width;j++)
+					{
+						if(j%2==0)
+						{
+							BUFF=mas[i][j/2];
+							mas[i][j/2]=mas[i][j];
+							mas[i][j]=BUFF;
+						}
+						else
+						{
+							/* code */
+						}
+						
+					}
+				}
+			}
+		}
 	}
+
+	cout<<endl;
+	for (int i = 0; i < height;i++)
+	{
+		for (int j = 0;j < width;j++) cout << mas[i][j] << "\t";
+		cout << endl;
+	}
+
 	return 0;
 }
