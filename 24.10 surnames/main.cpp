@@ -2,69 +2,84 @@
 #include <clocale>      //русский язык
 #include <fstream>      //для работы с текстом
 #include <cstring>      //проверяет длину строки
-#include <windows.h>    //win api на все случаи жизни
 using namespace std;    //ввод вывод
 
 int main()
 {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    setlocale(LC_ALL,"Rus");
     ifstream in;
     in.open ("input.txt",ios::in);
-    ofstream out;          // поток для записи
-    out.open("output.txt", ios::trunc);
-    string word;
-    int minw=2048000;
-    int maxw=0;
-    while (in >> word)
+    //short UPP1=3;
+    short UPP;
+    int COUNT;
+    int COUNT2;
+    if(in.is_open())
     {
-        for(int i=0;i<word.length();i++)
+        cout<<"Файл ввода открылся\n";
+        ofstream out;          // поток для записи
+        out.open("output.txt", ios::trunc);
+        if(out.is_open())
         {
-            if (!isalnum(word[i])) word[i]=' ';
-            if (isupper(word[i])) word[i]=tolower(word[i]);
-        }
-        if((word.length()>maxw) && (word[0]!=' '))maxw=word.length();
-        else if((word.length()<minw) && (word[0]!=' ') )minw=word.length();
-        if(word[0]!=' ')out<< word <<" ";
-    }
-    if(minw!=2048000 || maxw!=0)
-    {
-        in.close();
-        out.close();
-        cout<<"Максимальная длина слова: "<<maxw<<endl<<"Минимальная длина слова: "<<minw<<endl;
-        in.open ("output.txt", ios::in);
-        while(in>>word)
-        {
-            if(word.length()==maxw)
+            cout<<"Файл вывода открылся\n";
+            string s;
+            while (getline(in,s))
             {
-                outmax.close();
-                outmax.open("output_max.txt", ios::app);
-                outmax<<word<<' ';
-            }
-            if(word.length()==minw)
-            {
-                outmin.close();
-                outmin.open("output_min.txt", ios::app);
-                outmin<<word<<' ';
+                UPP=0;
+                COUNT=0;
+                for(int i=0;i<s.length();i++)
+                {
+                    if(isupper(s[i]))
+                    {
+                        UPP++;
+                        if(UPP==1)
+                        {
+                            do
+                            {
+                                i++;
+                            } while (islower(s[i]));
+                        }
+                        if(UPP==2)
+                        {
+                            i++;
+                            s[i]='.';
+                            i++;
+                            if(s[i]==' ')
+                            {
+                                s[i]=s[i+1];
+                                i++;
+                                s[i]='.';
+                            }
+                        }
+                    }
+                    if(s[i]=='.' && s[i-1]=='.')s[i]=' ';
+                    if(isdigit(s[i]))
+                    {
+                        COUNT+=(s[i]-'0');
+                        s[i]=' ';
+                    }
+                }
+                COUNT2=0;
+                for(int i=0;i<s.length();i++)
+                {
+                    if(s[i]=='.')
+                    {
+                        COUNT2++;
+                        if(COUNT2==2)
+                        {
+                            i++;
+                            while(s[i]==' ')
+                            {
+                                s.erase(i,1);
+                            }
+                        }
+                    }
+                }
+                cout<<s<<' '<<COUNT<<endl;
             }
         }
-        in.close();
-        out.close();outmin.close();outmax.close();
-        cout<<"Все обработанные слова: ";
-        in.open("output.txt",ios::in);
-        while(in>>word) cout<<word<<' ';
-        in.close();
-        in.open("output_max.txt",ios::in);
-        cout<<"\nВсе слова с длиной "<<maxw<<": ";
-        while(in>>word) cout<<word<<' ';
-        in.close();
-        in.open("output_min.txt",ios::in);
-        cout<<"\nВсе слова с длиной "<<minw<<": ";
-        while(in>>word) cout<<word<<' ';
+        else cout<<"Файл вывода не открылся\n";
     }
-    //else cout<<"В файле не введены слова, файл пустой, или файл не открылся."<<endl;
-    else
-    {
-    }
+    else cout<<"Файл ввода не открылся\n";
+
     return 0;
 }
