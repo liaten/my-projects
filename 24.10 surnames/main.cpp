@@ -15,12 +15,12 @@ int main()
     int COUNT2;
     if(in.is_open())
     {
-        cout<<"Файл ввода открылся\n";
+        //cout<<"Файл ввода открылся\n";
         ofstream out;          // поток для записи
         out.open("output.txt", ios::trunc);
         if(out.is_open())
         {
-            cout<<"Файл вывода открылся\n";
+            //cout<<"Файл вывода открылся\n";
             string s;
             while (getline(in,s))
             {
@@ -74,6 +74,7 @@ int main()
                         }
                     }
                 }
+                out<<s<<' '<<COUNT<<endl;
                 cout<<s<<' '<<COUNT<<endl;
             }
         }
