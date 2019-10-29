@@ -24,63 +24,12 @@ int main()
             string s;
             while (getline(in,s))
             {
-                UPP=0;
-                COUNT=0;
-                for(int i=0;i<s.length();i++)
-                {
-                    if(isupper(s[i]))
-                    {
-                        UPP++;
-                        if(UPP==1)
-                        {
-                            do
-                            {
-                                i++;
-                            } while (islower(s[i]));
-                        }
-                        if(UPP==2)
-                        {
-                            i++;
-                            s[i]='.';
-                            i++;
-                            if(s[i]==' ')
-                            {
-                                s[i]=s[i+1];
-                                i++;
-                                s[i]='.';
-                            }
-                        }
-                    }
-                    if(s[i]=='.' && s[i-1]=='.')s[i]=' ';
-                    if(isdigit(s[i]))
-                    {
-                        COUNT+=(s[i]-'0');
-                        s[i]=' ';
-                    }
-                }
-                COUNT2=0;
-                for(int i=0;i<s.length();i++)
-                {
-                    if(s[i]=='.')
-                    {
-                        COUNT2++;
-                        if(COUNT2==2)
-                        {
-                            i++;
-                            while(s[i]==' ')
-                            {
-                                s.erase(i,1);
-                            }
-                        }
-                    }
-                }
-                out<<s<<' '<<COUNT<<endl;
-                cout<<s<<' '<<COUNT<<endl;
+                
             }
         }
         else cout<<"Файл вывода не открылся\n";
     }
     else cout<<"Файл ввода не открылся\n";
-
+    system("pause");
     return 0;
 }
