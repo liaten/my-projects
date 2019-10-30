@@ -81,7 +81,7 @@ int main()
             cout<<"Введите ваш бюджет: ";
             int budget; cin>>budget;
             bool BUDMORE=0; //больше ли бюджет чем цена одной из книг
-            for(int i=1; i<BOOKNUM; i++)
+            for(int i=1; i<=BOOKNUM; i++)
             {
                 if(budget>=vars["Book"+to_string(i)].value)
                 {
