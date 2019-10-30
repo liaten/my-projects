@@ -78,7 +78,18 @@ int main()
                     cout<<vars["Book"+to_string(BOOKNUM)].year<<" "<<vars["Book"+to_string(BOOKNUM)].pages<<" "<<vars["Book"+to_string(BOOKNUM)].value<<endl;
                 */
             }
-            //ясно автор ушел спать
+            cout<<"Введите ваш бюджет: ";
+            int budget; cin>>budget;
+            bool BUDMORE=0; //больше ли бюджет чем цена одной из книг
+            for(int i=1; i<BOOKNUM; i++)
+            {
+                if(budget>=vars["Book"+to_string(i)].value)
+                {
+                    if(!BUDMORE)BUDMORE=1;
+                    cout<<vars["Book"+to_string(i)].author<<" "<<vars["Book"+to_string(i)].title<<" "<<vars["Book"+to_string(i)].firm<<" "<<vars["Book"+to_string(i)].year<<" "<<vars["Book"+to_string(i)].pages<<" "<<vars["Book"+to_string(i)].value<<endl;
+                }
+            }
+            if(!BUDMORE) cout<<"Бюджет меньше минимальной цены книги."<<endl;
         }
         else cout<<"Файл вывода не открылся\n";
     }
