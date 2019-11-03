@@ -67,13 +67,19 @@ int main()
             cout<<"Введите ваш бюджет: ";
             int budget; cin>>budget;
             bool BUDMORE=0; //больше ли бюджет чем цена одной из книг
+            bool OUTED1=0;
             for(int i=1; i<=BOOKNUM; i++)
             {
                 if(budget>=vars["Book"+to_string(i)].value)
                 {
                     if(!BUDMORE)BUDMORE=1;
-                    cout<<"На Ваш бюджет можно купить одну из следующих книг:\n";
-                    cout<<vars["Book"+to_string(i)].author<<" - \""<<vars["Book"+to_string(i)].title<<"\" издательства \""<<vars["Book"+to_string(i)].firm<<"\" "<<vars["Book"+to_string(i)].year<<" года, с количеством страниц "<<vars["Book"+to_string(i)].pages<<" и ценой "<<vars["Book"+to_string(i)].value<<endl;
+                    if(!OUTED1)
+                    {
+                        cout<<"На Ваш бюджет можно купить одну из следующих книг:\n";
+                        OUTED1=1;
+                    }
+                    cout<<vars["Book"+to_string(i)].author<<" - \""<<vars["Book"+to_string(i)].title<<"\" издательства \""<<vars["Book"+to_string(i)].firm<<"\" "<<vars["Book"+to_string(i)].year<<" года, с количеством страниц "<<vars["Book"+to_string(i)].pages<<" и ценой "<<vars["Book"+to_string(i)].value<<" рублей"<<endl;
+                    out<<vars["Book"+to_string(i)].author<<" - \""<<vars["Book"+to_string(i)].title<<"\" издательства \""<<vars["Book"+to_string(i)].firm<<"\" "<<vars["Book"+to_string(i)].year<<" года, с количеством страниц "<<vars["Book"+to_string(i)].pages<<" и ценой "<<vars["Book"+to_string(i)].value<<" рублей"<<endl;
                 }
             }
             if(!BUDMORE) cout<<"Ваш бюджет меньше минимальной цены одной из книг."<<endl;
