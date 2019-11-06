@@ -87,5 +87,6 @@ int main()
         else cout<<"Файл вывода не открылся\n";
     }
     else cout<<"Файл ввода не открылся\n";
+    system("pause");
     return 0;
 }
