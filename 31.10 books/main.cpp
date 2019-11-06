@@ -1,13 +1,8 @@
 #include <iostream>     //ввод вывод
 #include <clocale>
 #include <fstream>      //для работы с текстовыми файлами
-//#include <cstring>      //проверяет длину строки
 #include <sstream>
-//#include <string>
 #include <map>
-//#include <windows.h>    //библа винды
-//#include <math.h>
-
 using namespace std;    //ввод вывод
 struct library
 {
@@ -22,8 +17,6 @@ struct library
 int main()
 {
     setlocale(LC_ALL,"Rus");
-    /*SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);*/
     ifstream in;    // Поток ввода
     in.open ("input.txt",ios::in);
     int STRCOUNT=1;     // Счетчик строк для внесения в структуру
@@ -37,14 +30,7 @@ int main()
         {
             //cout<<"Файл вывода открылся\n";
             string s;
-            /*while (getline(in,s)) STRCOUNT++;
-            STRCOUNT/=6;*/
             map<string,library>vars;
-            /*for(int i=1;i<STRCOUNT+1;++i)
-            {
-                vars["Book"+to_string(i)];
-                cout<<"Book"+to_string(i)<<endl;
-            }*/
             in.close();
             in.open ("input.txt",ios::in);
             STRCOUNT=0;
@@ -81,19 +67,25 @@ int main()
             cout<<"Введите ваш бюджет: ";
             int budget; cin>>budget;
             bool BUDMORE=0; //больше ли бюджет чем цена одной из книг
+            bool OUTED1=0;
             for(int i=1; i<=BOOKNUM; i++)
             {
                 if(budget>=vars["Book"+to_string(i)].value)
                 {
                     if(!BUDMORE)BUDMORE=1;
-                    cout<<vars["Book"+to_string(i)].author<<" "<<vars["Book"+to_string(i)].title<<" "<<vars["Book"+to_string(i)].firm<<" "<<vars["Book"+to_string(i)].year<<" "<<vars["Book"+to_string(i)].pages<<" "<<vars["Book"+to_string(i)].value<<endl;
+                    if(!OUTED1)
+                    {
+                        cout<<"На Ваш бюджет можно купить одну из следующих книг:\n";
+                        OUTED1=1;
+                    }
+                    cout<<vars["Book"+to_string(i)].author<<" - \""<<vars["Book"+to_string(i)].title<<"\" издательства \""<<vars["Book"+to_string(i)].firm<<"\" "<<vars["Book"+to_string(i)].year<<" года, с количеством страниц "<<vars["Book"+to_string(i)].pages<<" и ценой "<<vars["Book"+to_string(i)].value<<" рублей"<<endl;
+                    out<<vars["Book"+to_string(i)].author<<" - \""<<vars["Book"+to_string(i)].title<<"\" издательства \""<<vars["Book"+to_string(i)].firm<<"\" "<<vars["Book"+to_string(i)].year<<" года, с количеством страниц "<<vars["Book"+to_string(i)].pages<<" и ценой "<<vars["Book"+to_string(i)].value<<" рублей"<<endl;
                 }
             }
-            if(!BUDMORE) cout<<"Бюджет меньше минимальной цены книги."<<endl;
+            if(!BUDMORE) cout<<"Ваш бюджет меньше минимальной цены одной из книг."<<endl;
         }
         else cout<<"Файл вывода не открылся\n";
     }
     else cout<<"Файл ввода не открылся\n";
-    system("pause");
     return 0;
 }
