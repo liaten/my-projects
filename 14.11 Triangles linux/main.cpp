@@ -1,18 +1,24 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-#define TRSIZE 5
+#include <iostream>
+using namespace std;
 
 int main()
 {
-size_t i, j;
-
-for(i = 1; i <= TRSIZE; ++i)
-{
-    for(j = TRSIZE; j > i; --j)       putchar(' ');
-        for(j = 1; j < 2 * i; ++j)  putchar('*');
+    int TRSIZE;
+    cin>>TRSIZE;
+    int maxlen=TRSIZE*2;
+    for(int i=1;i<TRSIZE+1;i++)
+    {
+        for(int j=1;j<TRSIZE+1;j++)
+        {
+            for(int k=1;k<maxlen+1;k++)
+            {
+                putchar('O');
+                putchar(' ');
+            }
+        }
         putchar('\n');
     }
-
-    exit(0);
+    return 0;
 }
