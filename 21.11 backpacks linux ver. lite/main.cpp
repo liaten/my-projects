@@ -53,7 +53,7 @@ void printTwoParts(int arr[], int n)
 // driver program 
 int main() 
 { 
-    int arr[] = {1 , 2 , 3 , 4 , 5 , 5 }; 
+    int arr[] = {12,11,4,3,1}; 
     int n = sizeof(arr)/sizeof(arr[0]); 
     printTwoParts(arr, n); 
     return 0; 
