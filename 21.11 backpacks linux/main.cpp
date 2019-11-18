@@ -88,7 +88,7 @@ int main()
     for(int i=1;i<max_i;i++)
     {
         mas1=0;mas2=0;
-        for(int j=0;j<tCOUNT;j++)
+        for(short j=0;j<tCOUNT;j++)
         {
             if(i&(1<<j))
             {
