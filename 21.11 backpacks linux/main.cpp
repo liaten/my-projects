@@ -37,19 +37,19 @@ int main()
         }
     }
     //вычисление минимальной разницы масс вещей
-    int mindiff;    //минимальная разница
+    /*int mindiff;    //минимальная разница
     mindiff=mas[tCOUNT-1];
     for(int i=0;i<tCOUNT;i++)
         for(int j=0;j<tCOUNT;j++)
             if(abs(mas[i]-mas[j])<mindiff && abs(mas[i]-mas[j])!=0)
                 mindiff=abs(mas[i]-mas[j]);
-    cout<<"Минимальная разница масс вещей: "<<mindiff<<endl;
+    cout<<"Минимальная разница масс вещей: "<<mindiff<<endl;*/
     //вычисление идеальной массы среднего рюкзака
-    int defmas;    //Остаток от деления
+    /*int defmas;    //Остаток от деления
     int sum=0; //сумма всех масс
     for(int i=0;i<tCOUNT;i++) sum+=mas[i];
     defmas=sum%bCOUNT;
-    cout<<"Идеальная масса рюкзака: "<<defmas<<endl;
+    cout<<"Остаток от деления суммы масс на количество рюкзаков: "<<defmas<<endl;*/
     //вывод начального массива
     cout<<"Все вещи в порядке возрастания: ";
     for (int i = 0; i < tCOUNT; i++) cout<<mas[i]<<' ';
@@ -58,8 +58,10 @@ int main()
     int back2[tCOUNT];    //2 рюкзак
     int mas1;   //масса 1 рюкзака
     int mas2;   //масса 2 рюкзака
-    long max_i=fact(tCOUNT)+1;   //переборы
-    cout<<"Максимальное число переборов: "<<max_i-1<<endl;
+    long max_i=fact(tCOUNT);   //переборы
+    cout<<"Максимальное число переборов: "<<max_i*2<<endl;
+    int masdif; //разница масс рюкзаков
+    int min_masdif=mas[tCOUNT-1]; //минимальная разница масс рюкзаков
     for(int i=1;i<max_i;i++)
     {
         mas1=0;mas2=0;
@@ -78,16 +80,33 @@ int main()
             mas1+=back1[j];
             mas2+=back2[j];
         }
-        if((sum%bCOUNT)!=0)
-        {
-            if(abs(mas1-mas2)==sum%bCOUNT) break;
-        }
-        if((sum%bCOUNT)==0)
-        {
-            if(abs(mas1-mas2)==0) break;
-        }
+        masdif=abs(mas1-mas2);
+        if(masdif<min_masdif) min_masdif=masdif;
+        //cout<<min_masdif<<endl;
+        //for(int k=0;k<tCOUNT;k++) cout<<back1[k]<<'\t'<<back2[k]<<'\n';
     }
-    for(int k=0;k<tCOUNT;k++) cout<<back1[k]<<'\t'<<back2[k]<<'\n';
+    for(int i=1;i<max_i;i++)
+    {
+        mas1=0;mas2=0;
+        for(int j=0;j<tCOUNT;j++)
+        {
+            if(i&(1<<j))
+            {
+                back1[j]=mas[j];
+                back2[j]=0;
+            }
+            else
+            {
+                back2[j]=mas[j];
+                back1[j]=0;
+            }
+            mas1+=back1[j];
+            mas2+=back2[j];
+        }
+        masdif=abs(mas1-mas2);
+        if(masdif==min_masdif)break;
+    }
+    //for(int k=0;k<tCOUNT;k++) cout<<back1[k]<<'\t'<<back2[k]<<'\n';
     cout<<"Масса 1 рюкзака: "<<mas1<<endl;
     cout<<"Масса 2 рюкзака: "<<mas2<<endl;
     cout<<"Массы вещей первого рюкзака: ";
