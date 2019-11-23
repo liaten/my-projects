@@ -2,38 +2,35 @@
 #include <time.h>
 using namespace std;
 
-int colors_count(int num)
-{
-    int count=1;
-    bool endcycle=1;
-    while (endcycle)
-    {
-        /* code */
-    }
-    
-}
-
 int main()
 {
-    int N;
-    cout<<"Введите число N: ";
-    cin>>N;
-    int s[N][N];
-    srand (time(NULL));
-    for(int i=0;i<N+2;i++)
+    unsigned N;
+    cout << "Введите число: ";
+    cin >> N;
+    
+    int** a = new int* [N+2];
+    for (unsigned i = 0; i < N+2; ++i)
     {
-        for(int j=0;j<N+2;j++)
+        a[i] = new int [N+2];
+    }
+    srand (time(NULL));
+    for(unsigned i=0;i<N+2;i++)
+    {
+        for(unsigned j=0;j<N+2;j++)
         {
-            if(i==0 || j==0 || i==N+1 || j==N+1) s[i][j]=0;
-            else s[i][j]=rand()%7+1;
-            cout<<s[i][j]<<' ';
+            if(i==0 || j==0 ) a[i][j]=0;
+            else if (i==N+1 || j==N+1) a[i][j]=0;
+            else a[i][j]=rand()%7+1;
+            cout<<a[i][j]<<' ';
         }
         cout<<endl;
     }
-    for(int i=0;i<N;i++)
+
+    for (unsigned i = 0; i < N; ++i)
     {
-        for(int j=0;j<N;j++) colors_count;
+        delete[] a[i];
     }
+    delete[] a;
     system("pause");
     return 0;
 }
