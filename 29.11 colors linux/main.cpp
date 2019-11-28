@@ -2,6 +2,8 @@
 #include <time.h>
 using namespace std;
 
+
+
 int main()
 {
     unsigned N;
@@ -9,10 +11,7 @@ int main()
     cin >> N;
     
     int** a = new int* [N+2];
-    for (unsigned i = 0; i < N+2; ++i)
-    {
-        a[i] = new int [N+2];
-    }
+    for (unsigned i = 0; i < N+2; ++i)  a[i] = new int [N+2];
     srand (time(NULL));
     for(unsigned i=0;i<N+2;i++)
     {
@@ -26,11 +25,8 @@ int main()
         cout<<endl;
     }
 
-    for (unsigned i = 0; i < N; ++i)
-    {
-        delete[] a[i];
-    }
+    for (unsigned i = 0; i < N; ++i)  delete[] a[i];
     delete[] a;
-    system("pause");
+    //system("pause");
     return 0;
 }
