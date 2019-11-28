@@ -2,7 +2,16 @@
 #include <time.h>
 using namespace std;
 
-
+//бот больше не путает лево и право, с ним все в порядке, лучше его не трогать :D
+unsigned short IsNearSame(int** a, int x, int y)
+{
+  unsigned short result=0;
+  if(a[x][y]==a[x-1][y]) result+=1; //есть такое же число сверху
+  if(a[x][y]==a[x][y+1]) result+=2; //справа
+  if(a[x][y]==a[x+1][y]) result+=4; //снизу
+  if(a[x][y]==a[x][y-1]) result+=8; //слева
+  return result;
+}
 
 int main()
 {
@@ -24,7 +33,21 @@ int main()
         }
         cout<<endl;
     }
-
+    for(unsigned i=1;i<N+1;i++)
+    {
+        for(unsigned j=1;j<N+1;j++)
+        {
+            if(IsNearSame(a,i,j)!=0)
+            {
+                cout<<"Для адреса ["<<i<<"]["<<j<<"] (вниз, вправо) есть число ";
+                if(IsNearSame(a,i,j) & (1<<0)) cout<<"сверху ";
+                if(IsNearSame(a,i,j) & (1<<1)) cout<<"справа ";
+                if(IsNearSame(a,i,j) & (1<<2)) cout<<"снизу ";
+                if(IsNearSame(a,i,j) & (1<<3)) cout<<"слева ";
+                cout<<endl;
+            }
+        }
+    }
     for (unsigned i = 0; i < N; ++i)  delete[] a[i];
     delete[] a;
     //system("pause");
