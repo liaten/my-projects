@@ -2,15 +2,33 @@
 #include <time.h>
 using namespace std;
 
-//бот больше не путает лево и право, с ним все в порядке, лучше его не трогать :D
+//функция подсчета
+//2.0 изменил теперь прога смотрит только направо и вниз
 unsigned short IsNearSame(int** a, int x, int y)
 {
   unsigned short result=0;
-  if(a[x][y]==a[x-1][y]) result+=1; //есть такое же число сверху
-  if(a[x][y]==a[x][y+1]) result+=2; //справа
-  if(a[x][y]==a[x+1][y]) result+=4; //снизу
-  if(a[x][y]==a[x][y-1]) result+=8; //слева
+  //if(a[x][y]==a[x-1][y]) result+=1; //есть такое же число сверху
+  if(a[x][y]==a[x][y+1]) result+=1; //справа
+  if(a[x][y]==a[x+1][y]) result+=2; //снизу
+  //if(a[x][y]==a[x][y-1]) result+=8; //слева
   return result;
+}
+
+unsigned CountColors(int** a, int x, int y)
+{
+    unsigned colors=0;
+        if(IsNearSame(a,x,y) & (1<<0))
+        {
+            colors++;
+            //cout<<"справа ";
+        }
+        if(IsNearSame(a,x,y) & (1<<1))
+        {
+            colors++;
+            //cout<<"снизу ";
+        }
+
+    return colors;
 }
 
 int main()
@@ -37,19 +55,19 @@ int main()
     {
         for(unsigned j=1;j<N+1;j++)
         {
-            if(IsNearSame(a,i,j)!=0)
+            /*if(IsNearSame(a,i,j)!=0)
             {
-                cout<<"Для адреса ["<<i<<"]["<<j<<"] (вниз, вправо) есть число ";
-                if(IsNearSame(a,i,j) & (1<<0)) cout<<"сверху ";
-                if(IsNearSame(a,i,j) & (1<<1)) cout<<"справа ";
-                if(IsNearSame(a,i,j) & (1<<2)) cout<<"снизу ";
-                if(IsNearSame(a,i,j) & (1<<3)) cout<<"слева ";
+                cout<<"["<<i<<"]["<<j<<"] (вниз, вправо) E значение "<<a[i][j]<<' ';
+                //if(IsNearSame(a,i,j) & (1<<0)) cout<<"сверху ";
+                if(IsNearSame(a,i,j) & (1<<0)) cout<<"справа ";
+                if(IsNearSame(a,i,j) & (1<<1)) cout<<"снизу ";
+                //if(IsNearSame(a,i,j) & (1<<3)) cout<<"слева ";
                 cout<<endl;
-            }
+            }*/
+            if(IsNearSame(a,i,j)!=0) cout<<CountColors(a,i,j)<<endl;
         }
     }
     for (unsigned i = 0; i < N; ++i)  delete[] a[i];
     delete[] a;
-    //system("pause");
     return 0;
 }
