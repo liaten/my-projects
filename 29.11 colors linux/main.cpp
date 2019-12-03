@@ -1,34 +1,29 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
-
-//функция подсчета
-//2.0 изменил теперь прога смотрит только направо и вниз
-unsigned short IsNearSame(int** a, int x, int y)
+//есть ли сверху то же число
+bool is_same_up(int **a, unsigned x, unsigned y,unsigned N)
 {
-  unsigned short result=0;
-  //if(a[x][y]==a[x-1][y]) result+=1; //есть такое же число сверху
-  if(a[x][y]==a[x][y+1]) result+=1; //справа
-  if(a[x][y]==a[x+1][y]) result+=2; //снизу
-  //if(a[x][y]==a[x][y-1]) result+=8; //слева
-  return result;
+    if(a[x][y]==a[x-1][y] && (x-1)>0) return 1;
+    else return 0;
 }
-
-unsigned CountColors(int** a, int x, int y)
+//есть ли снизу то же число
+bool is_same_down(int **a, unsigned x, unsigned y,unsigned N)
 {
-    unsigned colors=0;
-        if(IsNearSame(a,x,y) & (1<<0))
-        {
-            colors++;
-            //cout<<"справа ";
-        }
-        if(IsNearSame(a,x,y) & (1<<1))
-        {
-            colors++;
-            //cout<<"снизу ";
-        }
-
-    return colors;
+    if(a[x][y]==a[x+1][y] && (x+1)<N+1) return 1;
+    else return 0;
+}
+//есть ли слева то же число
+bool is_same_left(int **a, unsigned x, unsigned y,unsigned N)
+{
+    if(a[x][y]==a[x][y-1] && (y-1)>0) return 1;
+    else return 0;
+}
+//есть ли снизу то же число
+bool is_same_right(int **a, unsigned x, unsigned y,unsigned N)
+{
+    if(a[x][y]==a[x][y+1] && (y+1)<N+1) return 1;
+    else return 0;
 }
 
 int main()
@@ -55,16 +50,7 @@ int main()
     {
         for(unsigned j=1;j<N+1;j++)
         {
-            /*if(IsNearSame(a,i,j)!=0)
-            {
-                cout<<"["<<i<<"]["<<j<<"] (вниз, вправо) E значение "<<a[i][j]<<' ';
-                //if(IsNearSame(a,i,j) & (1<<0)) cout<<"сверху ";
-                if(IsNearSame(a,i,j) & (1<<0)) cout<<"справа ";
-                if(IsNearSame(a,i,j) & (1<<1)) cout<<"снизу ";
-                //if(IsNearSame(a,i,j) & (1<<3)) cout<<"слева ";
-                cout<<endl;
-            }*/
-            if(IsNearSame(a,i,j)!=0) cout<<CountColors(a,i,j)<<endl;
+            if(is_same_left(a,i,j,N)) cout<<i<<' '<<j<<endl;
         }
     }
     for (unsigned i = 0; i < N; ++i)  delete[] a[i];

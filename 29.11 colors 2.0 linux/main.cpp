@@ -1,24 +1,45 @@
 #include <iostream>
 #include <time.h>
 using namespace std;
-//  функция подсчета
-unsigned CountColors(int** a, unsigned x, unsigned y, unsigned &colors)
+
+//функция подсчета
+//2.0 изменил теперь прога смотрит только направо и вниз
+unsigned short IsNearSame(int** a, unsigned x, unsigned y)
 {
-    if(a[x][y]==a[x][y+1])
+  unsigned short result=0;
+  if(a[x][y]==a[x-1][y]) result+=1; //есть такое же число сверху
+  if(a[x][y]==a[x][y+1]) result+=2; //справа
+  if(a[x][y]==a[x+1][y]) result+=4; //снизу
+  if(a[x][y]==a[x][y-1]) result+=8; //слева
+  return result;
+}
+unsigned CountColors(int** a, int x, int y, int &colors)
+{
+    if(IsNearSame(a,x,y))
     {
-        colors++;
-        return CountColors(a,x,y+1,colors);
-        //cout<<"справа ";
-    }
-    if(a[x][y]==a[x+1][y])
-    {
-        colors++;
-        return CountColors(a,x+1,y,colors);
-        //cout<<"снизу ";
+        for(int i=0;i<3;i++)
+        {
+            if(IsNearSame(a,x,y) & (1<<i)) colors++;
+        }
+        if(IsNearSame(a,x,y) & (1<<0))
+        {
+            ;
+        }
+        if(IsNearSame(a,x,y) & (1<<1))
+        {
+            ;
+        }
+        if(IsNearSame(a,x,y) & (1<<2))
+        {
+            ;
+        }
+        if(IsNearSame(a,x,y) & (1<<3))
+        {
+            ;
+        }
     }
     else return colors;
 }
-
 int main()
 {
     unsigned N;
@@ -39,16 +60,14 @@ int main()
         }
         cout<<endl;
     }
-    unsigned c;
+    int c;      //кол-во цветов для каждого квадратика
+    int c_max;  //max кол-во цветов
     for(unsigned i=1;i<N+1;i++)
     {
         for(unsigned j=1;j<N+1;j++)
         {
-            if(a[i][j]==a[i][j+1] || a[i][j]==a[i+1][j]) 
-            {
-                c=0;
-                cout<<i<<' '<<j<<" = "<<CountColors(a,i,j,c)+1<<" ; Значение \""<<a[i][j]<<"\""<<endl;
-            }
+            c=1;
+            cout<<CountColors(a,i,j,c)<<endl;
         }
     }
     for (unsigned i = 0; i < N; ++i)  delete[] a[i];
