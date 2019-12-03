@@ -79,6 +79,7 @@ int main()
         }
         cout<<endl;
     }
+    unsigned COUNT=0;
     int** comb_array = new int* [ (N+1) * (N+1) ];
     for (unsigned i = 1; i < (N+1) * (N+1); ++i)  comb_array[i] = new int [2];
     for(unsigned i=1;i<N+1;i++)
@@ -96,22 +97,30 @@ int main()
                 if(combo==0)continue;
                 cout<<i<<' '<<j<<' '<<'='<<combo<<'='<<-a[i][j]<<endl;
             }
+            COUNT++;
+            comb_array[COUNT][0]=a[i][j];
             if (combo>=max_combo)
             {
                 max_combo=combo;
-                comb_array[i*j][0]=a[i][j];
-                comb_array[i*j][1]=combo;
+                comb_array[COUNT][1]=combo;
             }
+            else
+            {
+                comb_array[COUNT][1]=1;
+            }
+            
         }
     }
+    cout<<"Макс комбо: "<<max_combo<<"\nДля цветов: ";
     for(unsigned i=1;i<(N+1)*(N+1);i++)
     {
-        ;//for(unsigned j=0;j<1;j++) cout<<j<<' '<<endl;
+        if(comb_array[i][1]==max_combo && max_combo>1) cout<<-comb_array[i][0]<<' ';
+        if(max_combo==1) if(comb_array[i][0]!=0) cout<<-comb_array[i][0]<<' ';
     }
+    cout<<endl;
     for (unsigned i = 0; i < 2; ++i)  delete[] comb_array[i];
     for (unsigned i = 0; i < N; ++i)  delete[] a[i];
     delete[] a;
     delete[] comb_array;
-    cout<<max_combo<<endl;
     return 0;
 }
