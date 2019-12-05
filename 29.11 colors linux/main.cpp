@@ -114,6 +114,7 @@ int main()
                 comb_array[i*j][0]=a[i][j];
                 comb_array[i*j][1]=combo;
             }
+            a[i][j]*=-1;
         }
     }
     for(unsigned i=1;i<(N+1)*(N+1);i++)
