@@ -75,7 +75,17 @@ int main()
             if(i==0 || j==0 ) a[i][j]=0;
             else if (i==N+1 || j==N+1) a[i][j]=0;
             else a[i][j]=rand()%7+1;
-            cout<<a[i][j]<<' ';
+            if(a[i][j]!=0) 
+            {
+                //if(a[i][j]!=1)cout<<a[i][j]<<' ';
+                if(a[i][j]==1)  cout << "\033[1;31m1\033[0m ";
+                if(a[i][j]==2)  cout << "\033[1;32m2\033[0m ";
+                if(a[i][j]==3)  cout << "\033[1;33m3\033[0m ";
+                if(a[i][j]==4)  cout << "\033[1;34m4\033[0m ";
+                if(a[i][j]==5)  cout << "\033[1;35m5\033[0m ";
+                if(a[i][j]==6)  cout << "\033[1;36m6\033[0m ";
+                if(a[i][j]==7)  cout << "\033[1;37m7\033[0m ";
+            }
         }
         cout<<endl;
     }
@@ -86,16 +96,14 @@ int main()
     {
         for(unsigned j=1;j<N+1;j++)
         {
-            //if(is_same_left(a,i,j,N)) cout<<i<<' '<<j<<endl; рабочий пример
             combo=0;
             a[i][j]*=-1;
-            //if(is_any_same_nearby(a,i,j,N)) cout<<i<<' '<<j<<endl;
             if (is_any_same_nearby(a,i,j,N)) 
             {
                 a[i][j]*=-1;
                 combo=combo_count(a,i,j,combo,N)+1;
                 if(combo==0)continue;
-                cout<<i<<' '<<j<<' '<<'='<<combo<<'='<<-a[i][j]<<endl;
+                //cout<<i<<' '<<j<<' '<<'='<<combo<<'='<<-a[i][j]<<endl;
             }
             COUNT++;
             comb_array[COUNT][0]=a[i][j];
