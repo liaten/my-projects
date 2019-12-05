@@ -93,6 +93,7 @@ int main()
     }
     int** comb_array = new int* [ (N+1) * (N+1) ];
     for (unsigned i = 1; i < (N+1) * (N+1); ++i)  comb_array[i] = new int [2];
+    int COUNT=0;
     for(unsigned i=1;i<N+1;i++)
     {
         for(unsigned j=1;j<N+1;j++)
@@ -108,21 +109,36 @@ int main()
                 if(combo==0)continue;
                 //cout<<i<<' '<<j<<' '<<'='<<combo<<'='<<-a[i][j]<<endl;
             }
+            COUNT++;
             if (combo>=max_combo)
             {
                 max_combo=combo;
-                comb_array[i*j][0]=a[i][j];
-                comb_array[i*j][1]=combo;
+                comb_array[COUNT][0]=-a[i][j];
+                comb_array[COUNT][1]=combo;
             }
             a[i][j]*=-1;
         }
     }
-    for(unsigned i=1;i<(N+1)*(N+1);i++)
-    {
-        ;//for(unsigned j=0;j<1;j++) cout<<j<<' '<<endl;
-    }
 
-    cout<<"Макс комбо: "<<max_combo<<endl;
+    cout<<"Максимальная комбинация: "<<max_combo<<endl;
+    for(unsigned i=1;i<(N+1)*(N+1);i++) 
+    {
+        if(comb_array[i][1]==max_combo)
+        {
+            //cout<<comb_array[i][0]<<endl;
+            switch(comb_array[i][0])
+            {
+                case 1:  cout<<"\033[1;31mКрасный\033[0m ";break;
+                case 2:  cout << "\033[1;32mЗеленый\033[0m "; break;
+                case 3:  cout << "\033[1;33mЖелтый\033[0m "; break;
+                case 4:  cout << "\033[1;34mСиний\033[0m "; break;
+                case 5:  cout << "\033[1;35mПурпурный\033[0m "; break;
+                case 6:  cout << "\033[1;36mЦиановый\033[0m "; break;
+                case 7:  cout << "\033[1;37mБелый\033[0m "; break;
+            }
+            cout<<endl;
+        }
+    }
 
     for (unsigned i = 0; i < 2; ++i)  delete[] comb_array[i];
     for (unsigned i = 0; i < N; ++i)  delete[] a[i];
