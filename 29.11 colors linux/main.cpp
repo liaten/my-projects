@@ -1,28 +1,29 @@
 #include <iostream>
+#include <cmath>
 #include <time.h>
 using namespace std;
 //есть ли сверху то же число
 bool is_same_up(int **a, unsigned x, unsigned y,unsigned N)
 {
-    if(-a[x][y]==a[x-1][y] && (x-1)>0) return 1;
+    if(abs(a[x][y])==a[x-1][y] && (x-1)>0) return 1;
     else return 0;
 }
 //есть ли снизу то же число
 bool is_same_down(int **a, unsigned x, unsigned y,unsigned N)
 {
-    if(-a[x][y]==a[x+1][y] && (x+1)<N+1) return 1;
+    if(abs(a[x][y])==a[x+1][y] && (x+1)<N+1) return 1;
     else return 0;
 }
 //есть ли слева то же число
 bool is_same_left(int **a, unsigned x, unsigned y,unsigned N)
 {
-    if(-a[x][y]==a[x][y-1] && (y-1)>0) return 1;
+    if(abs(a[x][y])==a[x][y-1] && (y-1)>0) return 1;
     else return 0;
 }
 //есть ли снизу то же число
 bool is_same_right(int **a, unsigned x, unsigned y,unsigned N)
 {
-    if(-a[x][y]==a[x][y+1] && (y+1)<N+1) return 1;
+    if(abs(a[x][y])==a[x][y+1] && (y+1)<N+1) return 1;
     else return 0;
 }
 //есть ли схожие числа рядом
@@ -32,7 +33,7 @@ bool is_any_same_nearby(int **a, unsigned x, unsigned y,unsigned N)
     else return 0;
 }
 
-unsigned combo_count(int **a, unsigned x, unsigned y,unsigned combo,unsigned N)
+unsigned combo_count(int **a, unsigned x, unsigned y,unsigned &combo,unsigned N)
 {
     if(a[x][y]>0) a[x][y]*=-1;
     if(is_same_down(a,x,y,N)) 
@@ -77,21 +78,24 @@ int main()
             else a[i][j]=rand()%7+1;
             if(a[i][j]!=0) 
             {
-                //if(a[i][j]!=1)cout<<a[i][j]<<' ';
-                if(a[i][j]==1)  cout << "\033[1;31m1\033[0m ";
-                if(a[i][j]==2)  cout << "\033[1;32m2\033[0m ";
-                if(a[i][j]==3)  cout << "\033[1;33m3\033[0m ";
-                if(a[i][j]==4)  cout << "\033[1;34m4\033[0m ";
-                if(a[i][j]==5)  cout << "\033[1;35m5\033[0m ";
-                if(a[i][j]==6)  cout << "\033[1;36m6\033[0m ";
-                if(a[i][j]==7)  cout << "\033[1;37m7\033[0m ";
+                switch (a[i][j])
+                {
+                    case 1:  cout << "\033[1;31m1\033[0m "; break;
+                    case 2:  cout << "\033[1;32m2\033[0m "; break;
+                    case 3:  cout << "\033[1;33m3\033[0m "; break;
+                    case 4:  cout << "\033[1;34m4\033[0m "; break;
+                    case 5:  cout << "\033[1;35m5\033[0m "; break;
+                    case 6:  cout << "\033[1;36m6\033[0m "; break;
+                    case 7:  cout << "\033[1;37m7\033[0m "; break;
+                }
             }
         }
         cout<<endl;
     }
+
+    int** comb_array = new int* [ N*N*N ];
+    for (unsigned i = 1; i < N*N*N; ++i)  comb_array[i] = new int [2];
     unsigned COUNT=0;
-    int** comb_array = new int* [ (N+1) * (N+1) ];
-    for (unsigned i = 1; i < (N+1) * (N+1); ++i)  comb_array[i] = new int [2];
     for(unsigned i=1;i<N+1;i++)
     {
         for(unsigned j=1;j<N+1;j++)
@@ -103,10 +107,10 @@ int main()
                 a[i][j]*=-1;
                 combo=combo_count(a,i,j,combo,N)+1;
                 if(combo==0)continue;
-                //cout<<i<<' '<<j<<' '<<'='<<combo<<'='<<-a[i][j]<<endl;
+                cout<<i<<' '<<j<<' '<<'='<<combo<<'='<<abs(a[i][j])<<endl;
             }
             COUNT++;
-            comb_array[COUNT][0]=a[i][j];
+            comb_array[COUNT][0]=abs(a[i][j]);
             if (combo>=max_combo)
             {
                 max_combo=combo;
@@ -116,14 +120,23 @@ int main()
             {
                 comb_array[COUNT][1]=1;
             }
-            
+            cout<<combo<<' ';
+            a[i][j]*=-1;
         }
     }
+    cout<<endl;
     cout<<"Макс комбо: "<<max_combo<<"\nДля цветов: ";
-    for(unsigned i=1;i<(N+1)*(N+1);i++)
+    for(unsigned i=1;i<N*N*N;i++)
     {
-        if(comb_array[i][1]==max_combo && max_combo>1) cout<<-comb_array[i][0]<<' ';
-        if(max_combo==1) if(comb_array[i][0]!=0) cout<<-comb_array[i][0]<<' ';
+        if(comb_array[i][1]==max_combo)
+        {
+            cout<<comb_array[i][0]<<' ';
+        }
+        else if (max_combo==1) if(comb_array[i][0]!=0)
+        {
+            cout<<comb_array[i][0]<<' ';
+        }
+        //cout<<comb_array[i][1]<<' ';
     }
     cout<<endl;
     for (unsigned i = 0; i < 2; ++i)  delete[] comb_array[i];
