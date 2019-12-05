@@ -106,7 +106,7 @@ int main()
                 a[i][j]*=-1;
                 combo=combo_count(a,i,j,combo,N)+1;
                 if(combo==0)continue;
-                cout<<i<<' '<<j<<' '<<'='<<combo<<'='<<-a[i][j]<<endl;
+                //cout<<i<<' '<<j<<' '<<'='<<combo<<'='<<-a[i][j]<<endl;
             }
             if (combo>=max_combo)
             {
@@ -120,10 +120,12 @@ int main()
     {
         ;//for(unsigned j=0;j<1;j++) cout<<j<<' '<<endl;
     }
+
+    cout<<"Макс комбо: "<<max_combo<<endl;
+
     for (unsigned i = 0; i < 2; ++i)  delete[] comb_array[i];
     for (unsigned i = 0; i < N; ++i)  delete[] a[i];
     delete[] a;
     delete[] comb_array;
-    cout<<max_combo<<endl;
     return 0;
 }
