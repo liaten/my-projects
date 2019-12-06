@@ -13,7 +13,6 @@ struct library
     int pages;      // Количество страниц
     int value;      // Стоимость
 };
-
 int main()
 {
     setlocale(LC_ALL,"Rus");
