@@ -69,6 +69,11 @@ public:
         }
         pence+=pence_increment;
     }
+//  3)Сумма двух структур
+    void summer(eng_money,eng_money)
+    {
+        ;
+    }
 private:
     unsigned pounds;    //фунты
     unsigned shillings; //шиллинги
