@@ -70,9 +70,13 @@ public:
         pence+=pence_increment;
     }
 //  3)Сумма двух структур
-    void summer(eng_money,eng_money)
+    eng_money summary(eng_money &money1,eng_money &money2)
     {
-        ;
+        eng_money money_sum;
+        money_sum.pence=money1.pence+money2.pence;
+        money_sum.shillings=money1.shillings+money2.shillings;
+        money_sum.pounds=money1.pounds+money2.pounds;
+        return money_sum;
     }
 private:
     unsigned pounds;    //фунты
@@ -92,6 +96,6 @@ int main()
         purse[to_string(i)].increase(purse[to_string(i)],i);    //увеличение
         purse[to_string(i)].correct_value(purse[to_string(i)]); //проверка и перевод
         purse[to_string(i)].output(purse[to_string(i)],i);      //вывод
-
-    }return 0;
+    }
+    return 0;
 }
