@@ -32,28 +32,28 @@ bool is_any_same_nearby(int **a, unsigned x, unsigned y,unsigned N)
     else return 0;
 }
 
-unsigned combo_count(int **a, unsigned x, unsigned y,unsigned combo,unsigned N)
+unsigned combo_count(int **a, unsigned x, unsigned y,unsigned &combo,unsigned N)
 {
     if(a[x][y]>0) a[x][y]*=-1;
-    if(is_same_down(a,x,y,N)) 
+    if(is_same_down(a,x,y,N))
     {
         combo++;
-        return combo_count(a,x+1,y,combo,N);
+        combo=combo_count(a,x+1,y,combo,N);
     }
-    if(is_same_up(a,x,y,N)) 
+    if(is_same_up(a,x,y,N))
     {
         combo++;
-        return combo_count(a,x-1,y,combo,N);
+        combo=combo_count(a,x-1,y,combo,N);
     }
-    if(is_same_right(a,x,y,N)) 
+    if(is_same_right(a,x,y,N))
     {
         combo++;
-        return combo_count(a,x,y+1,combo,N);
+        combo=combo_count(a,x,y+1,combo,N);
     }
     if(is_same_left(a,x,y,N)) 
     {
         combo++;
-        return combo_count(a,x,y-1,combo,N);
+        combo=combo_count(a,x,y-1,combo,N);
     }
     return combo;
 }
@@ -79,13 +79,13 @@ int main()
             {
                 switch (a[i][j])
                 {
-                    case 1:  cout << "\033[1;31m1\033[0m "; break;
-                    case 2:  cout << "\033[1;32m2\033[0m "; break;
-                    case 3:  cout << "\033[1;33m3\033[0m "; break;
-                    case 4:  cout << "\033[1;34m4\033[0m "; break;
-                    case 5:  cout << "\033[1;35m5\033[0m "; break;
-                    case 6:  cout << "\033[1;36m6\033[0m "; break;
-                    case 7:  cout << "\033[1;37m7\033[0m "; break;
+                    case 1:  cout << "\033[1;31m[]\033[0m "; break;
+                    case 2:  cout << "\033[1;32m[]\033[0m "; break;
+                    case 3:  cout << "\033[1;33m[]\033[0m "; break;
+                    case 4:  cout << "\033[1;34m[]\033[0m "; break;
+                    case 5:  cout << "\033[1;35m[]\033[0m "; break;
+                    case 6:  cout << "\033[1;36m[]\033[0m "; break;
+                    case 7:  cout << "\033[1;37m[]\033[0m "; break;
                 }
             }
         }
@@ -139,6 +139,7 @@ int main()
             cout<<endl;
         }
     }
+    if(max_combo==1) cout<<"Нет комбинаций больше 1\n";
 
     for (unsigned i = 0; i < 2; ++i)  delete[] comb_array[i];
     for (unsigned i = 0; i < N; ++i)  delete[] a[i];
