@@ -114,16 +114,33 @@ int main()
 {
     unsigned N; //количество денежных сумм
     map<string,eng_money>purse;
+    eng_money purse_dif,purse_sum;
     cout<<"Введите количество денежных сумм: ";
     cin>>N;
+    unsigned short enter;
     for(unsigned i=1;i<N+1;i++)
     {
         purse[to_string(i)].enter(purse[to_string(i)],i);       //ввод
         purse[to_string(i)].correct_value(purse[to_string(i)]); //проверка и перевод
         purse[to_string(i)].increase(purse[to_string(i)],i);    //увеличение
         purse[to_string(i)].correct_value(purse[to_string(i)]); //проверка и перевод
-        if(i>1)purse[to_string(i)].difference(purse[to_string(i)],purse[to_string(i-1)]);//разница 2 и 1 структур
-        purse[to_string(i)].output(purse[to_string(i)],i);      //вывод
+        if(i>1) purse_dif=purse[to_string(i)].difference(purse[to_string(i)],purse[to_string(i-1)]);//разница 2 и 1 структур
+        purse_dif.output(purse_dif,i);      //вывод
     }
+        cout<<"1)Среднее значение, выраженное в том же виде\n2)Пары сумм,наиболее близких и наиболее далеких по значению\n0)Завершить программу\n";
+    do
+    {
+        cout<<"Введите число: ";
+        cin>>enter;
+        if(enter==1)
+        {
+            //прога номер 1
+        }
+        if(enter==2)
+        {
+            //прога номер 2
+        }
+    } while (enter!=0);
+    
     return 0;
 }
