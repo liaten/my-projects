@@ -6,7 +6,7 @@ using namespace std;
 struct eng_money
 {
 public:
-//012***6
+//0123456
 //  0)Ввод
     void enter(eng_money,unsigned &i)
     {
@@ -17,12 +17,12 @@ public:
         cin>>shillings;
         cout<<"Пенсы: ";
         cin>>pence;
-    }
+    };
 //  6)Вывод
     void output(eng_money,unsigned &i)
     {
         cout<<"Денежная сумма №"<<i<<": <<"<<pounds<<'-'<<shillings<<'-'<<pence<<">>\n";
-    }
+    };
 //  1)Проверка корректности значения
     void correct_value(eng_money)
     {
@@ -36,7 +36,7 @@ public:
             pounds+=(shillings/20);
             shillings%=20;
         }
-    }
+    };
 //  2)Увеличение заданной суммы
     void increase(eng_money,unsigned &i)
     {
@@ -68,7 +68,7 @@ public:
             shillings=0;
         }
         pence+=pence_increment;
-    }
+    };
 //  3)Сумма двух структур
     eng_money summary(eng_money &money1,eng_money &money2)
     {
@@ -77,7 +77,34 @@ public:
         money_sum.shillings=money1.shillings+money2.shillings;
         money_sum.pounds=money1.pounds+money2.pounds;
         return money_sum;
+    };
+//  4)Разность двух структур
+    eng_money difference(eng_money &money1,eng_money &money2)
+    {
+        eng_money money_dif;
+        money_dif.pence=money1.pence-money2.pence;
+        money_dif.shillings=money1.shillings-money2.shillings;
+        money_dif.pounds=money1.pounds-money2.pounds;
+        while(money_dif.shillings<0 && money_dif.pounds>0)
+        {
+            money_dif.shillings+=20;
+            money_dif.pounds-=1;
+        }
+        while(money_dif.pence<0 && money_dif.shillings>0)
+        {
+            money_dif.pence+=12;
+            money_dif.shillings-=1;
+        }
+        return money_dif;
     }
+//  5)Перевод суммы в пенсы
+    void to_pence(eng_money &money)
+    {
+        money.shillings+=money.pounds*20;
+        money.pounds=0;
+        money.pence+=money.shillings*12;
+        money.shillings=0;
+    };
 private:
     unsigned pounds;    //фунты
     unsigned shillings; //шиллинги
@@ -95,6 +122,7 @@ int main()
         purse[to_string(i)].correct_value(purse[to_string(i)]); //проверка и перевод
         purse[to_string(i)].increase(purse[to_string(i)],i);    //увеличение
         purse[to_string(i)].correct_value(purse[to_string(i)]); //проверка и перевод
+        if(i>1)purse[to_string(i)].difference(purse[to_string(i)],purse[to_string(i-1)]);//разница 2 и 1 структур
         purse[to_string(i)].output(purse[to_string(i)],i);      //вывод
     }
     return 0;
