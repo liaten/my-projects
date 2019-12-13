@@ -1,170 +1,283 @@
 #include <iostream>
-#include <map>
+#include <string>
 using namespace std;
-
-//английские деньги
-struct eng_money
+ 
+struct finance
 {
-public:
-//  0)Ввод
-    void enter(eng_money,unsigned &i)
-    {
-        cout<<"Введите данные денежной суммы №"<<i<<'\n';
-        cout<<"Фунты: ";
-        cin>>pounds;
-        cout<<"Шиллинги: ";
-        cin>>shillings;
-        cout<<"Пенсы: ";
-        cin>>pence;
-    };
-//  6)Вывод
-    void output(eng_money &money)
-    {
-        cout<<"Денежная сумма: <<"<<money.pounds<<'-'<<money.shillings<<'-'<<money.pence<<">>\n";
-    };
-//  1)Проверка корректности значения
-    void correct_value(eng_money &money)
-    {
-        to_pence(money);
-        if(pence>=12)
-        {
-            shillings+=(pence/12);
-            pence%=12;
-        }
-        if(shillings>=20)
-        {
-            pounds+=(shillings/20);
-            shillings%=20;
-        }
-    };
-//  2)Увеличение заданной суммы
-    void increase(eng_money,unsigned &i)
-    {
-        unsigned pounds_increment, shillings_increment, pence_increment;
-        cout<<"На сколько хотите увеличить денежную сумму №"<<i<<"? \nФунты: ";
-        cin>>pounds_increment;
-        cout<<"Шиллинги: ";
-        cin>>shillings_increment;
-        cout<<"Пенсы: ";
-        cin>>pence_increment;
-        if(pounds_increment!=0)
-        {
-            shillings_increment+=(pounds_increment*20);
-            pounds_increment=0;
-        }
-        if(shillings_increment!=0)
-        {
-            pence_increment+=(shillings_increment*12);
-            shillings_increment=0;
-        }
-        if(pounds!=0)
-        {
-            shillings+=(pounds*20);
-            pounds=0;
-        }
-        if(shillings!=0)
-        {
-            pence+=(shillings*12);
-            shillings=0;
-        }
-        pence+=pence_increment;
-    };
-//  3)Сумма двух структур
-    eng_money summary(eng_money &money1,eng_money &money2)
-    {
-        eng_money money_sum;
-        if(money1.pounds!=0 || money1.shillings!=0) money1=money1.to_pence(money1);
-        if(money2.pounds!=0 || money2.shillings!=0) money2=money2.to_pence(money1);
-        money_sum.pence=money1.pence+money2.pence;
-        money_sum.correct_value(money_sum);
-        money1.correct_value(money1);
-        money2.correct_value(money2);
-        return money_sum;
-    };
-//  4)Разность двух структур
-    eng_money difference(eng_money &money1,eng_money &money2)
-    {
-        eng_money money_dif;
-        if(money1.pounds!=0 || money1.shillings!=0) money1=money1.to_pence(money1);
-        if(money2.pounds!=0 || money2.shillings!=0) money2=money2.to_pence(money1);
-        money_dif.pence=money1.pence-money2.pence;
-        money_dif.correct_value(money_dif);
-        money1.correct_value(money1);
-        money2.correct_value(money2);
-        return money_dif;
-    }
-//  5)Перевод суммы в пенсы
-    eng_money to_pence(eng_money money)
-    {
-        if(money.pounds>0)
-        {
-            money.shillings+=money.pounds*20;
-            money.pounds=0;
-        }
-        if(money.shillings>0)
-        {
-            money.pence+=money.shillings*12;
-            money.shillings=0;
-        }
-        return money;
-    };
-    void to_zero(eng_money &money)
-    {
-      money.pence=0;
-      money.shillings=0;
-      money.pounds=0;
-    }
-    void mean(eng_money &money, unsigned &N)
-    {
-      money.to_pence(money);
-      money.pence/=N;
-      money.correct_value(money);
-      cout<<"Среднее значение: <<"<<money.pounds<<"-"<<money.shillings<<"-"<<money.pence<<">>\n";
-    }
-private:
-    long pounds;    //фунты
-    long shillings; //шиллинги
-    long pence;     //пенсы
+    int pound;
+    int shilling;
+    int penny;
 };
-int main()
+ 
+finance converter (finance Money)
 {
-    unsigned N; //количество денежных сумм
-    map<unsigned,eng_money>purse;
-    eng_money purse_dif,purse_sum;
-    cout<<"Введите количество денежных сумм: ";
-    cin>>N;
-    unsigned short enter;
-    eng_money money_summary; eng_money full_sum;
-    for(unsigned i=1;i<N+1;i++)
+    Money.shilling = Money.shilling + Money.penny / 12;
+    Money.penny = Money.penny % 12;
+    Money.pound = Money.pound + Money.shilling / 20;
+    Money.shilling = Money.shilling % 20;
+    return Money;
+}
+ 
+finance delta_adder (finance Money, int d_pound, int d_shilling, int d_penny)
+{
+    Money.penny = Money.penny + d_penny;
+    Money.shilling = Money.shilling + Money.penny / 12 + d_shilling;
+    Money.penny = Money.penny % 12;
+    Money.pound = Money.pound + Money.shilling / 20 + d_pound;
+    Money.shilling = Money.shilling % 20;
+    return Money;
+}
+ 
+finance double_adder (finance Money1, finance Money2)
+{
+    Money1.penny = Money1.penny + Money2.penny;
+    Money1.shilling = Money1.shilling + Money2.shilling + Money1.penny / 12;
+    Money1.penny = Money1.penny % 12;
+    Money1.pound = Money1.pound + Money2.pound + Money1.shilling / 20;
+    Money1.shilling = Money1.shilling % 20;
+    return Money1;
+}
+ 
+finance subtractor (finance Money1, finance Money2)
+{
+    Money1.penny = (Money1.pound * 20 + Money1.shilling) * 12 + Money1.penny;
+    Money2.penny = (Money2.pound * 20 + Money2.shilling) * 12 + Money2.penny;
+    if (Money1.penny>Money2.penny)
     {
-        purse[i].enter(purse[i],i);
-        purse[i].correct_value(purse[i]);
-        purse[i].output(purse[i]);
+        Money1.penny = Money1.penny - Money2.penny;
+        Money1.shilling = Money1.penny / 12;
+        Money1.penny = Money1.penny % 12;
+        Money1.pound = Money1.shilling / 20;
+        Money1.shilling = Money1.shilling % 20;
+        return Money1;
     }
-        cout<<"1)Среднее значение, выраженное в том же виде\n2)Пары сумм,наиболее близких и наиболее далеких по значению\n0)Завершить программу\n";
+    else
+    {
+        Money2.penny = Money2.penny - Money1.penny;
+        Money2.shilling = Money2.penny / 12;
+        Money2.penny = Money2.penny % 12;
+        Money2.pound = Money2.shilling / 20;
+        Money2.shilling = Money2.shilling % 20;
+        return Money2;
+    }
+}
+ 
+finance penny_converter (finance Money)
+{
+    Money.penny = (Money.pound * 20 + Money.shilling) * 12 + Money.penny;
+    Money.pound = 0;
+    Money.shilling = 0;
+    return Money;
+}
+ 
+void output (finance Money)
+{
+    if(Money.penny>12)
+    {
+      Money.shilling+=Money.penny/12;
+      Money.penny%=12;
+    }
+    if(Money.shilling>20)
+    {
+      Money.pound+=Money.shilling/20;
+      Money.shilling%=20;
+    }
+    cout << Money.pound << "-" << Money.shilling << "-" << Money.penny << endl;
+}
+ 
+int main(int argc, char** argv)
+{
+    string key;
+    char ki;
+    int i;
+    cout << "Какую операцию вы хотите выполнить?\n"
+    << "1. Проверка корректности значения\n"
+    << "2. Увеличение суммы на заданное количество денежных единиц\n"
+    << "3. Сложение двух денежных сумм\n"
+    << "4. Вычисление разности двух денежных сумм\n"
+    << "5. Перевод денежной суммы в пенсы\n"
+    << "6. Вывод денежной суммы в формате <<99-99-99>>\n"
+    << "7. Вывод среднего значения\n"
+    << "8. Вывод пары сумм, наиболее близких и далёких по значению\n";
+    cout << "Введите номер операции: ";
+    cin >> key;
+    ki = 0;
+    for (i=0; key[i]!='\0'; i++)
+        {
+            ki = ki * 10;
+            ki+=key[i] - '0';
+        }
+    if ((ki<1)||(ki>8)) do
+        {
+            cout << "Необходимо ввести цифру от 1 до 8.\n" << "Попробуйте снова: ";
+            cin >> key;
+            ki = 0;
+            for (i=0; key[i]!='\0'; i++)
+            {
+                ki = ki * 10;
+                ki+=key[i] - '0';
+            }
+        }
+        while ((ki<1)||(ki>8));
     do
     {
-        cout<<"Введите число: ";
-        cin>>enter;
-        full_sum.to_zero(full_sum);
-        full_sum.output(full_sum);
-        if(enter==1)
+    if (ki<7)
+    {
+        finance Money;
+        cout << "Введите количество фунтов: ";
+        cin >> Money.pound;
+        cout << "Введите количество шиллингов: ";
+        cin >> Money.shilling;
+        cout << "Введите количество пенсов: ";
+        cin >> Money.penny;
+        switch (ki)
         {
-            for(unsigned i=1;i<N;i++)
+            case 1:
+                Money = converter(Money);
+                cout << "Корректное значение: ";
+                output (Money);
+                break;
+            case 2:
+                int d_pound, d_shilling, d_penny;
+                cout << "Введите количество фунтов, которое необходимо прибавить: ";
+                cin >> d_pound;
+                cout << "Введите количество шиллингов, которое необходимо прибавить: ";
+                cin >> d_shilling;
+                cout << "Введите количество пенсов, которое необходимо прибавить: ";
+                cin >> d_penny;
+                Money = delta_adder(Money, d_pound, d_shilling, d_penny);
+                cout << "Конечная сумма: ";
+                output (Money);
+                break;
+            case 3:
+                finance SMoney;
+                cout << "Введите количество фунтов второй денежной суммы: ";
+                cin >> SMoney.pound;
+                cout << "Введите количество шиллингов второй денежной суммы: ";
+                cin >> SMoney.shilling;
+                cout << "Введите количество пенсов второй денежной суммы: ";
+                cin >> SMoney.penny;
+                Money = double_adder(Money, SMoney);
+                cout << "Конечная сумма: ";
+                output (Money);
+                break;
+            case 4:
+                finance RMoney;
+                cout << "Введите количество фунтов второй денежной суммы: ";
+                cin >> RMoney.pound;
+                cout << "Введите количество шиллингов второй денежной суммы: ";
+                cin >> RMoney.shilling;
+                cout << "Введите количество пенсов второй денежной суммы: ";
+                cin >> RMoney.penny;
+                Money = subtractor(Money, RMoney);
+                cout << "Разность: ";
+                output (Money);
+                break;
+            case 5:
+                Money = penny_converter(Money);
+                cout << "Денежная сумма в пенсах: ";
+                output (Money);
+                break;
+            case 6:
+                cout << "Денежная сумма в формате <<99-99-99>>: ";
+                output (Money);
+                break;
+        }
+    }
+    else
+    {
+        int kol;
+        cout << "Введите колличество денежных сумм: ";
+        cin >> kol;
+        if (kol < 2) do
+        {
+            cout << "Для продолжения необходимо, чтобы денежных сумм было несколько.\n" << "Попробуйте снова: ";
+            cin >> kol;
+        }
+        while (kol < 2);
+        finance Money [kol];
+        for (i = 0; i < kol; i++)
+        {
+            cout << "Введите количество фунтов денежной суммы № " << i+1 << " : ";
+            cin >> Money[i].pound;
+            cout << "Введите количество шиллингов денежной суммы № " << i+1 << " : ";
+            cin >> Money[i].shilling;
+            cout << "Введите количество пенсов денежной суммы № " << i+1 << " : ";
+            cin >> Money[i].penny;
+        }
+        finance Common = Money[0];
+        for (i = 1; i < kol; i++)   Common =double_adder(Common,Money[i]);
+        Common = penny_converter(Common);
+        int min = Common.penny, max = 0;
+        Common.penny = Common.penny / kol;
+        Common = converter(Common);
+        if (ki==7)
+        {
+            cout << "Среднее значение денежных сумм: ";
+            output(Common);
+        }
+        int j, n [2] , f [2];
+        finance Delta;
+        for (i = 0; i < (kol-1); i++)
+            for (j = (i+1); j < kol; j++)
             {
-              money_summary=money_summary.summary(purse[i],purse[i+1]);
-              money_summary.output(money_summary);
-              full_sum.summary(full_sum, money_summary);
-              full_sum.output(full_sum);
-              money_summary.to_zero(money_summary);
+                Delta = subtractor(Money[i],Money[j]);
+                Delta = penny_converter(Delta);
+                if (Delta.penny<min)
+                {
+                    min = Delta.penny;
+                    n[0] = i;
+                    n[1] = j;
+                }
+                if (Delta.penny>max)
+                {
+                    max = Delta.penny;
+                    f[0] = i;
+                    f[1] = j;
+                }
+                Delta.penny = 0;
             }
-            //full_sum.mean(full_sum, N);
-        }
-        if(enter==2)
+        if (ki==8)
         {
-            //прога номер 2
+            cout << "Пара денежных сумм, с наиболее близким значением: " << endl;
+            output(Money[n[0]]);
+            output(Money[n[1]]);
+            cout << "Пара денежных сумм, с наиболее далёким значением: " << endl;
+            output(Money[f[0]]);
+            output(Money[f[1]]);
         }
-    } while (enter!=0);
-    
+    }
+    /*cout << "\nКакую операцию вы хотите выполнить?\n"
+    << "1. Проверка корректности значения\n"
+    << "2. Увеличение суммы на заданное количество денежных единиц\n"
+    << "3. Сложение двух денежных сумм\n"
+    << "4. Вычисление разности двух денежных сумм\n"
+    << "5. Перевод денежной суммы в пенсы\n"
+    << "6. Вывод денежной суммы в формате <<99-99-99>>\n"
+    << "7. Вывод среднего значения\n"
+    << "8. Вывод пары сумм, наиболее близких и далёких по значению\n"
+    << "9. Выход из программы\n";*/
+    cout << "Введите номер операции: ";
+    cin >> key;
+    ki = 0;
+    for (i=0; key[i]!='\0'; i++)
+        {
+            ki = ki * 10;
+            ki+=key[i] - '0';
+        }
+    if ((ki<1)||(ki>9)) do
+        {
+            cout << "Необходимо ввести цифру от 1 до 8.\n" << "Попробуйте снова: ";
+            cin >> key;
+            ki = 0;
+            for (i=0; key[i]!='\0'; i++)
+            {
+                ki = ki * 10;
+                ki+=key[i] - '0';
+            }
+        }
+        while ((ki<1)||(ki>9));
+    }
+    while (ki!=9);
     return 0;
 }
