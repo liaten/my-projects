@@ -19,9 +19,9 @@ public:
         cin>>pence;
     };
 //  6)Вывод
-    void output(eng_money,unsigned &i)
+    void output(eng_money &money)
     {
-        cout<<"Денежная сумма №"<<i<<": <<"<<pounds<<'-'<<shillings<<'-'<<pence<<">>\n";
+        cout<<"Денежная сумма: <<"<<money.pounds<<'-'<<money.shillings<<'-'<<money.pence<<">>\n";
     };
 //  1)Проверка корректности значения
     void correct_value(eng_money &money)
@@ -74,9 +74,12 @@ public:
     eng_money summary(eng_money &money1,eng_money &money2)
     {
         eng_money money_sum;
+        if(money1.pounds!=0 || money1.shillings!=0) money1=money1.to_pence(money1);
+        if(money2.pounds!=0 || money2.shillings!=0) money2=money2.to_pence(money1);
         money_sum.pence=money1.pence+money2.pence;
-        money_sum.shillings=money1.shillings+money2.shillings;
-        money_sum.pounds=money1.pounds+money2.pounds;
+        money_sum.correct_value(money_sum);
+        money1.correct_value(money1);
+        money2.correct_value(money2);
         return money_sum;
     };
 //  4)Разность двух структур
@@ -85,7 +88,10 @@ public:
         eng_money money_dif;
         if(money1.pounds!=0 || money1.shillings!=0) money1=money1.to_pence(money1);
         if(money2.pounds!=0 || money2.shillings!=0) money2=money2.to_pence(money1);
-
+        money_dif.pence=money1.pence-money2.pence;
+        money_dif.correct_value(money_dif);
+        money1.correct_value(money1);
+        money2.correct_value(money2);
         return money_dif;
     }
 //  5)Перевод суммы в пенсы
@@ -103,6 +109,18 @@ public:
         }
         return money;
     };
+    void to_zero(eng_money &money)
+    {
+      money.pence=0;
+      money.shillings=0;
+      money.pounds=0;
+    }
+    void mean(eng_money &money, unsigned &N)
+    {
+      double pencedif;
+      money.to_pence(money);
+      cout<<money.pence%N;
+    }
 private:
     long pounds;    //фунты
     long shillings; //шиллинги
@@ -116,6 +134,7 @@ int main()
     cout<<"Введите количество денежных сумм: ";
     cin>>N;
     unsigned short enter;
+    eng_money money_summary; eng_money full_sum;
     for(unsigned i=1;i<N+1;i++)
     {
         purse[i].enter(purse[i],i);       //ввод
@@ -129,16 +148,25 @@ int main()
         }
         purse[i].output(purse[i],i);*/
         purse[i].correct_value(purse[i]);
-        purse[i].output(purse[i],i);
+        purse[i].output(purse[i]);
     }
         cout<<"1)Среднее значение, выраженное в том же виде\n2)Пары сумм,наиболее близких и наиболее далеких по значению\n0)Завершить программу\n";
     do
     {
         cout<<"Введите число: ";
         cin>>enter;
+        full_sum.to_zero(full_sum);
         if(enter==1)
         {
-            //прога номер 1
+            for(unsigned i=1;i<N;i++)
+            {
+              money_summary=money_summary.summary(purse[i],purse[i+1]);
+              money_summary.output(money_summary);
+              full_sum.summary(full_sum, money_summary);
+              money_summary.to_zero(money_summary);
+            }
+            //full_sum.output(full_sum);
+            full_sum.to_zero(full_sum);
         }
         if(enter==2)
         {
