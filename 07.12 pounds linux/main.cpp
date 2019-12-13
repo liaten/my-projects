@@ -1,12 +1,11 @@
 #include <iostream>
 #include <map>
 using namespace std;
-//английские деньги
 
+//английские деньги
 struct eng_money
 {
 public:
-//0123456
 //  0)Ввод
     void enter(eng_money,unsigned &i)
     {
@@ -117,9 +116,10 @@ public:
     }
     void mean(eng_money &money, unsigned &N)
     {
-      double pencedif;
       money.to_pence(money);
-      cout<<money.pence%N;
+      money.pence/=N;
+      money.correct_value(money);
+      cout<<"Среднее значение: <<"<<money.pounds<<"-"<<money.shillings<<"-"<<money.pence<<">>\n";
     }
 private:
     long pounds;    //фунты
@@ -137,16 +137,7 @@ int main()
     eng_money money_summary; eng_money full_sum;
     for(unsigned i=1;i<N+1;i++)
     {
-        purse[i].enter(purse[i],i);       //ввод
-        /*purse[i].correct_value(purse[i]); //проверка и перевод
-        purse[i].increase(purse[i],i);    //увеличение
-        purse[i].correct_value(purse[i]); //проверка и перевод
-        if(i>1) 
-        {
-            purse_dif=purse[i].difference(purse[i],purse[i-1]);//разница 2 и 1 структур
-            purse_dif.output(purse_dif,i);      //вывод
-        }
-        purse[i].output(purse[i],i);*/
+        purse[i].enter(purse[i],i);
         purse[i].correct_value(purse[i]);
         purse[i].output(purse[i]);
     }
@@ -156,6 +147,7 @@ int main()
         cout<<"Введите число: ";
         cin>>enter;
         full_sum.to_zero(full_sum);
+        full_sum.output(full_sum);
         if(enter==1)
         {
             for(unsigned i=1;i<N;i++)
@@ -163,10 +155,10 @@ int main()
               money_summary=money_summary.summary(purse[i],purse[i+1]);
               money_summary.output(money_summary);
               full_sum.summary(full_sum, money_summary);
+              full_sum.output(full_sum);
               money_summary.to_zero(money_summary);
             }
-            //full_sum.output(full_sum);
-            full_sum.to_zero(full_sum);
+            //full_sum.mean(full_sum, N);
         }
         if(enter==2)
         {
