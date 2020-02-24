@@ -17,6 +17,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_clicked()
 {
+    hide();
     Laba1 window;
     window.setModal(true);
     window.exec();

@@ -15,6 +15,11 @@ public:
     explicit Laba1(QWidget *parent = nullptr);
     ~Laba1();
 
+private slots:
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
 private:
     Ui::Laba1 *ui;
 };
