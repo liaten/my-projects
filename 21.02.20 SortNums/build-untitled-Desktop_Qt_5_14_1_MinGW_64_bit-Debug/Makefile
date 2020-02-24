@@ -61,7 +61,8 @@ OBJECTS       = laba1.o \
 		moc_laba1.o \
 		moc_mainwindow.o
 
-DIST          =  ..\untitled\laba1.h \
+DIST          = ../build-untitled-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/final.txt \
+		../build-untitled-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/start.txt ..\untitled\laba1.h \
 		..\untitled\mainwindow.h ..\untitled\laba1.cpp \
 		..\untitled\main.cpp \
 		..\untitled\mainwindow.cpp
@@ -881,7 +882,42 @@ laba1.o: ../untitled/laba1.cpp ../untitled/laba1.h \
 		C:/Qt/5.14.1/mingw73_64/include/QtCore/qfiledevice.h \
 		C:/Qt/5.14.1/mingw73_64/include/QtGui/qvector2d.h \
 		C:/Qt/5.14.1/mingw73_64/include/QtGui/qtouchdevice.h \
-		ui_laba1.h
+		ui_laba1.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/QVariant \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/QApplication \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qapplication.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/qcoreapplication.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/qeventloop.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtGui/qguiapplication.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtGui/qinputmethod.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/QGridLayout \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qgridlayout.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qlayout.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qboxlayout.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/QHBoxLayout \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/QLabel \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qlabel.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qframe.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/QPushButton \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qpushbutton.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtGui/qicon.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/QSpinBox \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qspinbox.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qabstractspinbox.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtGui/qvalidator.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/qregularexpression.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/QVBoxLayout \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/QMessageBox \
+		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qmessagebox.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/QString \
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/QDebug \
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/QVector \
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/QProcess \
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/qprocess.h \
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/QFile
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o laba1.o ..\untitled\laba1.cpp
 
 main.o: ../untitled/main.cpp ../untitled/mainwindow.h \
