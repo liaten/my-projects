@@ -22,12 +22,10 @@ int main()
     int BOOKNUM=0;      // Счетчик книг
     if(in.is_open())
     {
-        //cout<<"Файл ввода открылся\n";
         ofstream out;          // Поток вывода
         out.open("output.txt", ios::trunc);
         if(out.is_open())
         {
-            //cout<<"Файл вывода открылся\n";
             string s;
             map<string,library>vars;
             in.close();
@@ -58,10 +56,6 @@ int main()
                     istringstream iss (s, istringstream::in);
                     iss>>vars["Book"+to_string(BOOKNUM)].value;
                 }
-                /*  тут проверка на работу структуры
-                    cout<<vars["Book"+to_string(BOOKNUM)].author<<" "<<vars["Book"+to_string(BOOKNUM)].title<<" "<<vars["Book"+to_string(BOOKNUM)].firm<<" ";
-                    cout<<vars["Book"+to_string(BOOKNUM)].year<<" "<<vars["Book"+to_string(BOOKNUM)].pages<<" "<<vars["Book"+to_string(BOOKNUM)].value<<endl;
-                */
             }
             cout<<"Введите ваш бюджет: ";
             int budget; cin>>budget;

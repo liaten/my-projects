@@ -52,29 +52,32 @@ void Laba1::on_pushButton_clicked()
                 ui->label_3->setText( temp );
             }
         }
-        int *aa = new int [N];
-        for(int i=0;i<N;i++) aa[i]=0;
-        int COUNTER1=N,COUNTER2=N;
-        while(COUNTER1!=-1)
+
+        /*int cellcount=N,BUFF;       // BUFF - буферная переменная; cellcount - счетчик места
+        while(cellcount!=0)
         {
-            for(int i=0;i<N;i++)
+            for(int i=N;i>-1;i++)        //  i - счетчик наибольшего числа
             {
-                if(a[i]==COUNTER1)
+                for(int j=0;j<cellcount;j++)  //  j - счетчик места в массиве
                 {
-                    aa[COUNTER2]=a[i];
-                    COUNTER2--;
+                    if(a[j]==i)
+                    {
+                        BUFF=a[cellcount-1];
+                        a[cellcount-1]=a[j];
+                        a[j]=BUFF;
+                        cellcount--;
+                    }
                 }
             }
-            COUNTER1--;
         }
 
         ofstream out2;          // Поток вывода
         out2.open("final.txt", ios::trunc);
         for(int i=0;i<N;i++)
         {
-            out2<<aa[i];
+            out2<<a[i];
             temp = ui->label_4 ->text();
-            temp2=QString::number(aa[i]);
+            temp2=QString::number(a[i]);
             temp.append(temp2);
             ui->label_4->setText(temp);
             if(i<N-1)
@@ -84,5 +87,49 @@ void Laba1::on_pushButton_clicked()
                 temp.append(' ');
                 ui->label_4->setText( temp );
             }
+        }*/
+}
+
+void Laba1::on_pushButton_2_clicked()
+{
+    ui->label_4->setText("");
+    QString number1 = ui -> number -> text();
+    QString temp,temp2;
+    ofstream out;
+    out.open("start.txt", ios::in);
+    int N = number1.toInt();
+    int* a = new int [N];
+
+    int cellcount=N,BUFF;       // BUFF - буферная переменная; cellcount - счетчик места;
+        for(int i=N;i>-1;i++)        //  i - счетчик наибольшего числа
+        {
+            for(int j=0;j<cellcount;j++)  //  j - счетчик места в массиве
+            {
+                if(a[j]==i)
+                {
+                    BUFF=a[cellcount-1];
+                    a[cellcount-1]=a[j];
+                    a[j]=BUFF;
+                    cellcount--;
+                }
+            }
         }
+
+    ofstream out2;          // Поток вывода
+    out2.open("final.txt", ios::trunc);
+    for(int i=0;i<N;i++)
+    {
+        out2<<a[i];
+        temp = ui->label_4 ->text();
+        temp2=QString::number(a[i]);
+        temp.append(temp2);
+        ui->label_4->setText(temp);
+        if(i<N-1)
+        {
+            out2<<' ';
+            temp = ui->label_4 ->text();
+            temp.append(' ');
+            ui->label_4->setText( temp );
+        }
+    }
 }

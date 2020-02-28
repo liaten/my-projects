@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>721</width>
+    <width>638</width>
     <height>72</height>
    </rect>
   </property>
@@ -63,7 +63,14 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Сгенерировать и отсортировать</string>
+        <string>Сгенерировать</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>Отсортировать</string>
        </property>
       </widget>
      </item>
