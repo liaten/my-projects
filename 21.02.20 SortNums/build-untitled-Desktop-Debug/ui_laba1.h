@@ -32,7 +32,6 @@ public:
     QSpinBox *number;
     QVBoxLayout *verticalLayout_4;
     QPushButton *pushButton;
-    QPushButton *pushButton_2;
     QGridLayout *gridLayout;
     QLabel *label_3;
     QLabel *label_4;
@@ -43,7 +42,7 @@ public:
     {
         if (Laba1->objectName().isEmpty())
             Laba1->setObjectName(QString::fromUtf8("Laba1"));
-        Laba1->resize(726, 72);
+        Laba1->resize(899, 88);
         horizontalLayout = new QHBoxLayout(Laba1);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         verticalLayout_3 = new QVBoxLayout();
@@ -68,7 +67,7 @@ public:
         number = new QSpinBox(Laba1);
         number->setObjectName(QString::fromUtf8("number"));
         number->setMinimum(1);
-        number->setMaximum(999999999);
+        number->setMaximum(70);
 
         horizontalLayout_2->addWidget(number);
 
@@ -89,13 +88,6 @@ public:
         pushButton->setSizePolicy(sizePolicy1);
 
         verticalLayout_4->addWidget(pushButton);
-
-        pushButton_2 = new QPushButton(Laba1);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        sizePolicy1.setHeightForWidth(pushButton_2->sizePolicy().hasHeightForWidth());
-        pushButton_2->setSizePolicy(sizePolicy1);
-
-        verticalLayout_4->addWidget(pushButton_2);
 
 
         horizontalLayout->addLayout(verticalLayout_4);
@@ -137,7 +129,6 @@ public:
         label_2->setText(QCoreApplication::translate("Laba1", "\320\227\320\260\320\264\320\260\321\207\320\260: \320\276\321\202\321\201\320\276\321\200\321\202\320\270\321\200\320\276\320\262\320\260\321\202\321\214 N \321\201\320\273\321\203\321\207\320\260\320\271\320\275\321\213\321\205 \321\207\320\270\321\201\320\265\320\273 \320\276\321\202 0 \320\264\320\276 N \320\274\320\265\321\202\320\276\320\264\320\276\320\274 \321\203\320\261\321\213\320\262\320\260\320\275\320\270\321\217", nullptr));
         label->setText(QCoreApplication::translate("Laba1", "\320\222\320\262\320\265\320\264\320\270\321\202\320\265 \321\207\320\270\321\201\320\273\320\276 N: ", nullptr));
         pushButton->setText(QCoreApplication::translate("Laba1", "\320\241\320\263\320\265\320\275\320\265\321\200\320\270\321\200\320\276\320\262\320\260\321\202\321\214 \320\270 \320\276\321\202\321\201\320\276\321\200\321\202\320\270\321\200\320\276\320\262\320\260\321\202\321\214", nullptr));
-        pushButton_2->setText(QCoreApplication::translate("Laba1", "\320\237\321\200\320\276\320\262\320\265\321\200\320\270\321\202\321\214 \321\205\320\276\320\264 \321\201\320\276\321\200\321\202\320\270\321\200\320\276\320\262\320\272\320\270", nullptr));
         label_3->setText(QString());
         label_4->setText(QString());
         label_6->setText(QCoreApplication::translate("Laba1", "\320\236\321\202\321\201\320\276\321\200\321\202\320\270\321\200\320\276\320\262\320\260\320\275\320\275\321\213\320\271 \320\274\320\260\321\201\321\201\320\270\320\262:", nullptr));

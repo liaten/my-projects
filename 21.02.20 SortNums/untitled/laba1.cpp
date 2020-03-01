@@ -3,11 +3,6 @@
 #include <iostream>
 #include <time.h>   //рандом по времени
 #include <fstream>  //текстовики
-#include <QMessageBox>
-#include <QString>
-#include <QDebug>
-#include <QVector>
-#include <QProcess>
 using namespace std;
 
 Laba1::Laba1(QWidget *parent) :
@@ -102,9 +97,4 @@ void Laba1::on_pushButton_clicked()
             }
             out2.close();
         }
-}
-
-void Laba1::on_pushButton_2_clicked()
-{
-    QProcess::startDetached("notepad.exe");
 }
