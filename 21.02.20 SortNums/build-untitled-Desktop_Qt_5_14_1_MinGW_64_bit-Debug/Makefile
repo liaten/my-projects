@@ -61,7 +61,8 @@ OBJECTS       = laba1.o \
 		moc_laba1.o \
 		moc_mainwindow.o
 
-DIST          = ../build-untitled-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/final.txt \
+DIST          = ../build-untitled-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/changes.txt \
+		../build-untitled-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/final.txt \
 		../build-untitled-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/start.txt ..\untitled\laba1.h \
 		..\untitled\mainwindow.h ..\untitled\laba1.cpp \
 		..\untitled\main.cpp \
@@ -910,14 +911,8 @@ laba1.o: ../untitled/laba1.cpp ../untitled/laba1.h \
 		C:/Qt/5.14.1/mingw73_64/include/QtGui/qvalidator.h \
 		C:/Qt/5.14.1/mingw73_64/include/QtCore/qregularexpression.h \
 		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/QVBoxLayout \
-		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/QMessageBox \
-		C:/Qt/5.14.1/mingw73_64/include/QtWidgets/qmessagebox.h \
-		C:/Qt/5.14.1/mingw73_64/include/QtCore/QString \
-		C:/Qt/5.14.1/mingw73_64/include/QtCore/QDebug \
-		C:/Qt/5.14.1/mingw73_64/include/QtCore/QVector \
 		C:/Qt/5.14.1/mingw73_64/include/QtCore/QProcess \
-		C:/Qt/5.14.1/mingw73_64/include/QtCore/qprocess.h \
-		C:/Qt/5.14.1/mingw73_64/include/QtCore/QFile
+		C:/Qt/5.14.1/mingw73_64/include/QtCore/qprocess.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o laba1.o ..\untitled\laba1.cpp
 
 main.o: ../untitled/main.cpp ../untitled/mainwindow.h \

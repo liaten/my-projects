@@ -8,8 +8,6 @@
 #include <QDebug>
 #include <QVector>
 #include <QProcess>
-#include <QFile>
-
 using namespace std;
 
 Laba1::Laba1(QWidget *parent) :
@@ -52,24 +50,42 @@ void Laba1::on_pushButton_clicked()
                 ui->label_3->setText( temp );
             }
         }
+        out.close();
 
-        /*int cellcount=N,BUFF;       // BUFF - буферная переменная; cellcount - счетчик места
-        while(cellcount!=0)
+        //int BUFF;       // буферная переменная
+        //int MAXBUF;     // буфер макс числа
+        int BUFF_FOR_NUMS;
+        int maxnum=N;   // правильно заполненное макс число
+        int maxmax=N;   // ЧИСЛОВОЙ МАКСИМУМ
+        ofstream changes;   //Поток изменений
+        changes.open("changes.txt",ios::trunc);
+        while(maxmax!=-1)
         {
-            for(int i=N;i>-1;i++)        //  i - счетчик наибольшего числа
+            //MAXBUF=maxmax;
+            //BUFF=maxnum;
+            for(int i=0;i<maxnum;i++)
             {
-                for(int j=0;j<cellcount;j++)  //  j - счетчик места в массиве
+                if(a[i]==maxmax)
                 {
-                    if(a[j]==i)
-                    {
-                        BUFF=a[cellcount-1];
-                        a[cellcount-1]=a[j];
-                        a[j]=BUFF;
-                        cellcount--;
-                    }
+                    if(a[maxnum-1]==a[i])continue;
+                    BUFF_FOR_NUMS=a[maxnum-1];
+                    a[maxnum-1]=a[i];
+                    a[i]=BUFF_FOR_NUMS;
+                    maxnum--;
                 }
             }
+            for(int i=0;i<N;i++)
+            {
+                changes<<a[i];
+                if(i<N-1)
+                {
+                    changes<<' ';
+                }
+            }
+            changes<<'\n';
+            maxmax--;
         }
+        changes.close();
 
         ofstream out2;          // Поток вывода
         out2.open("final.txt", ios::trunc);
@@ -87,49 +103,10 @@ void Laba1::on_pushButton_clicked()
                 temp.append(' ');
                 ui->label_4->setText( temp );
             }
-        }*/
+        }
 }
 
 void Laba1::on_pushButton_2_clicked()
 {
-    ui->label_4->setText("");
-    QString number1 = ui -> number -> text();
-    QString temp,temp2;
-    ofstream out;
-    out.open("start.txt", ios::in);
-    int N = number1.toInt();
-    int* a = new int [N];
-
-    int cellcount=N,BUFF;       // BUFF - буферная переменная; cellcount - счетчик места;
-        for(int i=N;i>-1;i++)        //  i - счетчик наибольшего числа
-        {
-            for(int j=0;j<cellcount;j++)  //  j - счетчик места в массиве
-            {
-                if(a[j]==i)
-                {
-                    BUFF=a[cellcount-1];
-                    a[cellcount-1]=a[j];
-                    a[j]=BUFF;
-                    cellcount--;
-                }
-            }
-        }
-
-    ofstream out2;          // Поток вывода
-    out2.open("final.txt", ios::trunc);
-    for(int i=0;i<N;i++)
-    {
-        out2<<a[i];
-        temp = ui->label_4 ->text();
-        temp2=QString::number(a[i]);
-        temp.append(temp2);
-        ui->label_4->setText(temp);
-        if(i<N-1)
-        {
-            out2<<' ';
-            temp = ui->label_4 ->text();
-            temp.append(' ');
-            ui->label_4->setText( temp );
-        }
-    }
+    QProcess::startDetached("notepad.exe");
 }
