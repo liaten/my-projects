@@ -52,22 +52,18 @@ void Laba1::on_pushButton_clicked()
         }
         out.close();
 
-        //int BUFF;       // буферная переменная
-        //int MAXBUF;     // буфер макс числа
         int BUFF_FOR_NUMS;
+        int COUNTER=1;
         int maxnum=N;   // правильно заполненное макс число
         int maxmax=N;   // ЧИСЛОВОЙ МАКСИМУМ
         ofstream changes;   //Поток изменений
         changes.open("changes.txt",ios::trunc);
         while(maxmax!=-1)
         {
-            //MAXBUF=maxmax;
-            //BUFF=maxnum;
             for(int i=0;i<maxnum;i++)
             {
                 if(a[i]==maxmax)
                 {
-                    if(a[maxnum-1]==a[i])continue;
                     BUFF_FOR_NUMS=a[maxnum-1];
                     a[maxnum-1]=a[i];
                     a[i]=BUFF_FOR_NUMS;
@@ -83,7 +79,8 @@ void Laba1::on_pushButton_clicked()
                 }
             }
             changes<<'\n';
-            maxmax--;
+            COUNTER++;
+            if(COUNTER%2==0) maxmax--;
         }
         changes.close();
 
@@ -103,6 +100,7 @@ void Laba1::on_pushButton_clicked()
                 temp.append(' ');
                 ui->label_4->setText( temp );
             }
+            out2.close();
         }
 }
 
