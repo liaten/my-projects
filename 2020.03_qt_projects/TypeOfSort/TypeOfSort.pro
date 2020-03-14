@@ -16,24 +16,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    laba1.cpp \
     main.cpp \
-    mainwindow.cpp
+    numbersort.cpp
 
 HEADERS += \
-    laba1.h \
-    mainwindow.h
+    numbersort.h
 
 FORMS += \
-    laba1.ui \
-    mainwindow.ui
+    numbersort.ui
+
+TRANSLATIONS += \
+    TypeOfSort_ru_RU.ts
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES += \
-    ../build-untitled-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/changes.txt \
-    ../build-untitled-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/final.txt \
-    ../build-untitled-Desktop_Qt_5_14_1_MinGW_64_bit-Debug/start.txt
+RESOURCES +=
