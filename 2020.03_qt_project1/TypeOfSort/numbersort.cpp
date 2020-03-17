@@ -7,6 +7,7 @@
 #include <QVector>
 #include <QProcess>
 #include <QStatusBar>
+
 NumberSort::NumberSort(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::NumberSort)
