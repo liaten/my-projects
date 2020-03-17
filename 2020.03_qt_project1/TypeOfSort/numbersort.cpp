@@ -6,7 +6,8 @@
 #include <QDebug>
 #include <QVector>
 #include <QProcess>
-#include <QStatusBar>
+//#include <QStatusBar>
+//#include <QTimer>
 
 NumberSort::NumberSort(QWidget *parent)
     : QMainWindow(parent)
@@ -20,160 +21,44 @@ NumberSort::~NumberSort()
     delete ui;
 }
 
-void NumberSort::quickSort(QVector <int>& array, int left, int right) {
-
-//QuickSort//
-   int i = left, j = right;
-    int temp;
-    int pivot = array[(left + right) / 2];
-
-    while (i <= j) {
-        while (array[i] < pivot){
-            i++;
-        }
-        while (array[j] > pivot){
-            j--;
-        }
-        if (i <= j) {
-            temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-            i++;
-            j--;
-        }
-}
-
-    if (left < j)
-        quickSort(array, left, j);
-    if (i < right)
-        quickSort(array, i, right);
-
-}
-
-void NumberSort::SortShortArray(QVector <int>& ar){
-    int temp;
-    for (int i = 0; i < ar.size() - 1; i++) {
-            for (int j = 0; j < ar.size() - i - 1; j++) {
-                if (ar[j] > ar[j + 1]) {
-                    // меняем элементы местами
-                    temp = ar[j];
-                    ar[j] = ar[j + 1];
-                    ar[j + 1] = temp;
-                }
-            }
-        }
-}
-
-bool NumberSort::sheck_fucntion(QVector <int>& mess){
-    for(int i = 0; i < mess.size()-1; i++){
-        if(mess[i] <= mess[i+1]){
-            continue;
-        }else{
-
-            return false;
-        }
+void NumberSort::shekerSort(QVector <int>& mass, int count)
+{
+    QMessageBox m;
+    int left = 0, right = count - 1; // левая и правая границы сортируемой области массива
+  int flag = 1;  // флаг наличия перемещений
+  //int prohodnum=0;
+  // Выполнение цикла пока левая граница не сомкнётся с правой
+  // или пока в массиве имеются перемещения
+  while ((left < right) && flag > 0)
+  {
+    flag = 0;
+    for (int i = left; i<right; i++)  //двигаемся слева направо
+    {
+      if (mass[i]<mass[i + 1]) // если следующий элемент меньше текущего,
+      {             // меняем их местами
+        int t = mass[i];
+        mass[i] = mass[i + 1];
+        mass[i + 1] = t;
+        flag = 1;      // перемещения в этом цикле были
+      }
     }
-    return true;
-}
-
-void NumberSort::NaturalSort(QVector <int>& array, int size){
-    /*  Создаем промежуточные массивы
-     *  Серия 1 - mess_1
-     *  Cерия 2 - mess_2
-     */
-    QVector<int> mess_1;
-    QVector<int> mess_2;
-    QVector<int> result;
-    bool shit = true;
-
-    while(!sheck_fucntion(array)){
-        /*Сначала записываем первое чисо массива, если оно меньше второго, то
-         * записываем в mess_1,а если нет то в mess_1 и меняем ход проверки
-         * на mess_2
-         */
-       if(array[0] <= array[1]){
-           mess_1.push_back(array[0]);
-           mess_1.push_back(array[1]);
-           shit = true;
-       }else{
-           mess_1.push_back(array[0]);
-           mess_1.push_back(0);
-           mess_2.push_back(array[1]);
-           shit = false;
-       }
-
-       for(int j = 1; j < size-1; j++){
-           /*Используем распеределение по сериям с помочью флага - shit
-            * Если true - mess_1
-            * Если False - mess_2
-            */
-           if(shit){
-                if(array[j] <= array[j+1]){
-                    mess_1.push_back(array[j+1]);
-                }else{
-                    mess_1.push_back(0);
-                    mess_2.push_back(array[j+1]);
-                    shit = false;
-                }
-
-           }else{
-               if(array[j] <= array[j+1]){
-                   mess_2.push_back(array[j+1]);
-               }else{
-                   mess_2.push_back(0);
-                   mess_1.push_back(array[j+1]);
-                   shit = true;
-               }
-
-           }
-
-       }
-       QVector<int> result;
-       QVector<int> res;
-       mess_1.push_back(0);
-       mess_2.push_back(0);
-       int m1 = 0;
-       int m2 = 0;
-       int chg = array.size() - 1;
-       int count = 0;
-       array.clear();
-       while(true){
-            while(mess_1[m1] != 0){
-                result.push_back(mess_1[m1]);
-                count++;
-                m1++;
-            }
-            if(m1 < mess_1.size()-1){
-                m1++;
-            }
-
-            while(mess_2[m2] != 0){
-                 result.push_back(mess_2[m2]);
-                 count++;
-                 m2++;
-            }
-            if(m2 < mess_2.size()-1){
-                m2++;
-            }
-
-            quickSort(result,0,result.size() - 1);
-            for(int i = 0; i < result.size(); i++){
-                 array.push_back(result[i]);
-            }
-
-            result.clear();
-
-            if(count >= chg ){
-                 break;
-             }
-        }
-        m1 = 0;
-        m2 = 0;
-        res.clear();
-        mess_1.clear();
-        mess_2.clear();
+    right--; // сдвигаем правую границу на предыдущий элемент
+    for (int i = right; i>left; i--)  //двигаемся справа налево
+    {
+      if (mass[i - 1]<mass[i]) // если предыдущий элемент больше текущего,
+      {            // меняем их местами
+        int t = mass[i];
+        mass[i] = mass[i - 1];
+        mass[i - 1] = t;
+        flag = 1;    // перемещения в этом цикле были
+      }
     }
-
+    left++; // сдвигаем левую границу на следующий элемент
+    //prohodnum++;
+    //m.setText("Выполнено проходов: "+QString::number(prohodnum));
+    //QTimer::singleShot(10, &m, SLOT(close()));
+    //m.exec();
+  }
 }
 
 void NumberSort::on_SortArray_clicked(){
@@ -210,13 +95,13 @@ void NumberSort::on_SortArray_clicked(){
         // Writting sorted array
 
         timer.start();
-        NaturalSort(array, array.size() - 1);
+        shekerSort(array, array.size() - 1);
         time = timer.elapsed() ;
-        QMessageBox::information(this,"Info","Массив был отсортирован за " + QString::number(time) + " миллисекунд ");
+        QMessageBox::information(this,"Info","Массив был отсортирован за " + QString::number(time) + " миллисекунд(ы) ");
 
         buff = "";
         QTextStream writestream(&Output);
-        for(int i = 0; i < array.size(); i++){
+        for(int i = 0; i < array.size()-1; i++){
             buff =QString::number(array[i]) +  " ";
             writestream << buff;
             buff = "";
