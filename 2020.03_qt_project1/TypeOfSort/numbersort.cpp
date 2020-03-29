@@ -1,7 +1,7 @@
 #include "numbersort.h"
 #include "Random.h"
 #include "ui_numbersort.h"
-#include <QMessageBox>
+//#include <QMessageBox>
 #include <QString>
 #include <QDebug>
 #include <QVector>
@@ -23,7 +23,7 @@ NumberSort::~NumberSort()
 
 void NumberSort::shekerSort(QVector <int>& mass, int count)
 {
-    QMessageBox m;
+    //QMessageBox m;
     int left = 0, right = count - 1; // левая и правая границы сортируемой области массива
   int flag = 1;  // флаг наличия перемещений
   //int prohodnum=0;
@@ -32,28 +32,35 @@ void NumberSort::shekerSort(QVector <int>& mass, int count)
   while ((left < right) && flag > 0)
   {
     flag = 0;
+    int max,min,BUF,BUF2;
+    max=mass[left];
     for (int i = left; i<right; i++)  //двигаемся слева направо
     {
-      if (mass[i]<mass[i + 1]) // если следующий элемент меньше текущего,
-      {             // меняем их местами
-        int t = mass[i];
-        mass[i] = mass[i + 1];
-        mass[i + 1] = t;
-        flag = 1;      // перемещения в этом цикле были
+        if (mass[i]>max)
+      {
+          max=mass[i];
+          BUF=i;
+          flag = 1;      // перемещения в этом цикле были
       }
     }
-    right--; // сдвигаем правую границу на предыдущий элемент
+    BUF2=mass[BUF];
+    mass[BUF]=mass[left];
+    mass[left]=BUF2;
+    min=max;
+    left++;
     for (int i = right; i>left; i--)  //двигаемся справа налево
     {
-      if (mass[i - 1]<mass[i]) // если предыдущий элемент больше текущего,
-      {            // меняем их местами
-        int t = mass[i];
-        mass[i] = mass[i - 1];
-        mass[i - 1] = t;
-        flag = 1;    // перемещения в этом цикле были
+      if (mass[i]<min)
+      {
+          min=mass[i];
+          BUF=i;
+          flag = 1;      // перемещения в этом цикле были
       }
     }
-    left++; // сдвигаем левую границу на следующий элемент
+    BUF2=mass[BUF];
+    mass[BUF]=mass[right];
+    mass[right]=BUF2;
+    right--;
     //prohodnum++;
     //m.setText("Выполнено проходов: "+QString::number(prohodnum));
     //QTimer::singleShot(10, &m, SLOT(close()));
@@ -97,7 +104,8 @@ void NumberSort::on_SortArray_clicked(){
         timer.start();
         shekerSort(array, array.size() - 1);
         time = timer.elapsed() ;
-        QMessageBox::information(this,"Info","Массив был отсортирован за " + QString::number(time) + " миллисекунд(ы) ");
+        //QMessageBox::information(this,"Info","Массив был отсортирован за " + QString::number(time) + " миллисекунд(ы) ");
+        ui->statusBar->showMessage("Массив был отсортирован за " + QString::number(time) + " миллисекунд(ы) ");
 
         buff = "";
         QTextStream writestream(&Output);
@@ -157,7 +165,9 @@ void NumberSort::on_CreatArray_clicked()
    str = "";
    str += QString::number(N) + " Чисел было сгенерированно.";
 
-   QMessageBox::information(this,"Info",str);
+   //QMessageBox::information(this,"Info",str);
+   ui->statusBar->showMessage(str);
+
 
    Input.close();
 }
